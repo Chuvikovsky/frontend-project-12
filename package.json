@@ -21,6 +21,6 @@
     "postinstall": "cd frontend && npm ci"
   },
   "dependencies": {
-    "@hexlet/chat-server": "^2.0.4"
+    "@hexlet/chat-server": "^1.1.6"
   }
 }

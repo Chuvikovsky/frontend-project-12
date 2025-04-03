@@ -23,4 +23,9 @@ export default defineConfig([
   },
   pluginReact.configs.flat.recommended,
   globalIgnores(["dist/"]),
+  {
+    rules: {
+      "react/prop-types": "off",
+    },
+  },
 ]);
