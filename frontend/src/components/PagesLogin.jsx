@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import useAuth from "../hooks/auth";
 import { Button, Form, Card } from "react-bootstrap";
 import routes from "../utils/routes";
+import { useSelector, useDispatch } from "react-redux";
+import { logIn, logOut, setUser } from "../store/authSlice";
 
 export const PageLogin = () => {
-  const auth = useAuth();
+  const dispatch = useDispatch();
   const [isAuthFailed, setAuthFailed] = useState(false);
   const navigate = useNavigate();
   const formik = useFormik({
@@ -21,7 +22,8 @@ export const PageLogin = () => {
         .post(routes.loginPath(), values)
         .then((response) => {
           localStorage.setItem("token", JSON.stringify(response.data));
-          auth.logIn();
+          dispatch(logIn());
+          dispatch(setUser({ username: response.data.username }));
           navigate("/");
         })
         .catch((err) => {

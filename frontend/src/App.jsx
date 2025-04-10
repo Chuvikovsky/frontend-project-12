@@ -10,28 +10,14 @@ import {
 import { PageLogin } from "./components/PagesLogin.jsx";
 import { PageIndex } from "./components/PageIndex.jsx";
 import { PageNotFound } from "./components/PageNotFound.jsx";
-import AuthContext from "./contexts/auth.jsx";
-import useAuth from "./hooks/auth.jsx";
-
-const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  const logIn = () => setLoggedIn(true);
-  const logOut = () => {
-    localStorage.removeItem("token");
-    setLoggedIn(false);
-  };
-
-  return (
-    <AuthContext.Provider value={{ isLoggedIn, logIn, logOut }}>
-      {children}
-    </AuthContext.Provider>
-  );
-};
+import { useSelector, useDispatch } from "react-redux";
+// import { logIn, logOut } from "./store/authSlice.js";
 
 const PrivateRouter = ({ children }) => {
-  const auth = useAuth();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const location = useLocation();
-  return auth.isLoggedIn ? (
+  // return children;
+  return isLoggedIn ? (
     children
   ) : (
     <Navigate to="/login" state={{ from: location }} />
@@ -40,22 +26,20 @@ const PrivateRouter = ({ children }) => {
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route path="login" element={<PageLogin />} />
-          <Route path="*" element={<PageNotFound />} />
-          <Route
-            path="/"
-            element={
-              <PrivateRouter>
-                <PageIndex />
-              </PrivateRouter>
-            }
-          />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route path="login" element={<PageLogin />} />
+        <Route path="*" element={<PageNotFound />} />
+        <Route
+          path="/"
+          element={
+            <PrivateRouter>
+              <PageIndex />
+            </PrivateRouter>
+          }
+        />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
