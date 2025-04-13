@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, Card } from "react-bootstrap";
-import routes from "../utils/routes";
 import { useSelector, useDispatch } from "react-redux";
 import { logIn, logOut, setUser } from "../store/authSlice";
+import { logInRequest } from "../utils/requests";
 
 export const PageLogin = () => {
   const dispatch = useDispatch();
@@ -18,8 +17,7 @@ export const PageLogin = () => {
     },
     onSubmit: (values) => {
       setAuthFailed(false);
-      axios
-        .post(routes.loginPath(), values)
+      logInRequest(values) // promise
         .then((response) => {
           localStorage.setItem("token", JSON.stringify(response.data));
           dispatch(logIn());
@@ -67,7 +65,7 @@ export const PageLogin = () => {
             the username or password is incorrect
           </Form.Control.Feedback>
         </Form.Group>
-        <Button type="submit" variant="primary">
+        <Button type="submit" variant="primary" className="me-2 mt-2">
           Submit
         </Button>
       </Form>

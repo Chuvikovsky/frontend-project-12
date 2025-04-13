@@ -1,15 +1,13 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import getAuthHeader from "../utils/authHeader.js";
-import axios from "axios";
-import routes from "../utils/routes.js";
 import { addMessage } from "../store/messagesSlice.js";
+import { sendMessageRequest } from "../utils/requests.js";
 
-const MessageForm = () => {
+const MessageForm = ({ inputRef }) => {
   const [text, setText] = useState("");
-  const channelId = useSelector((state) => state.channels.currentChannelId);
-  const username = useSelector((state) => state.auth.username);
   const dispath = useDispatch();
+  const channelId = useSelector((state) => state.channels.currentChannel.id);
+  const username = useSelector((state) => state.auth.username);
   const handleChange = (e) => {
     setText(e.target.value);
   };
@@ -21,8 +19,7 @@ const MessageForm = () => {
       channelId,
       username,
     };
-    axios
-      .post(routes.messagesPath(), newMessage, { headers: getAuthHeader() })
+    sendMessageRequest(newMessage) // promise
       .then((response) => {
         dispath(addMessage(response.data));
         setText("");
@@ -43,6 +40,7 @@ const MessageForm = () => {
             className="border-0 p-0 ps-2 form-control"
             value={text}
             onChange={(e) => handleChange(e)}
+            ref={inputRef}
           />
           <button type="submit" disabled="" className="btn btn-group-vertical">
             Send
