@@ -33,6 +33,13 @@ const removeChannelRequest = (channelId) => {
   });
 };
 
+const renameChannelRequest = ({ channelId, channelname }) => {
+  const newChannelName = { name: channelname };
+  return axios.patch(`${routes.channelsPath()}/${channelId}`, newChannelName, {
+    headers: getAuthHeader(),
+  });
+};
+
 export {
   logInRequest,
   getChannels,
@@ -40,4 +47,5 @@ export {
   sendMessageRequest,
   addChannelRequest,
   removeChannelRequest,
+  renameChannelRequest,
 };

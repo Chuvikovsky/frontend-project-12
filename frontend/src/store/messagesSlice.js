@@ -3,21 +3,25 @@ import { removeChannel } from "./channelsSlice";
 
 const messagesSlice = createSlice({
   name: "messages",
-  initialState: [],
+  initialState: {
+    messagesList: [],
+  },
   reducers: {
     addMessage: (state, action) => {
-      const isMessagePresent = state.find((m) => m.id === action.payload.id);
+      const isMessagePresent = state.messagesList.find(
+        (m) => m.id === action.payload.id
+      );
       if (!isMessagePresent) {
-        state.push(action.payload);
+        state.messagesList.push(action.payload);
       }
     },
   },
   extraReducers: (builder) => {
     builder.addCase(removeChannel, (state, action) => {
       const channelId = action.payload;
-      console.log("before", state);
-      state = state.filter((m) => m.channelId !== channelId);
-      console.log("after", state);
+      state.messagesList = state.messagesList.filter(
+        (m) => m.channelId !== channelId
+      );
     });
   },
 });

@@ -2,7 +2,12 @@ import React, { useEffect, useRef, useState } from "react";
 // import { Navigate } from "react-router-dom";
 import { getChannels, getMessages } from "../utils/requests";
 import { useSelector, useDispatch } from "react-redux";
-import { addChannel, removeChannel } from "../store/channelsSlice";
+import {
+  addChannel,
+  removeChannel,
+  changeChannel,
+  renameChannel,
+} from "../store/channelsSlice";
 import { addMessage } from "../store/messagesSlice";
 import { Channels } from "./Channels";
 import { Messages } from "./Messages";
@@ -39,9 +44,35 @@ const PageIndex = () => {
     socket.on("removeChannel", (payload) => {
       resolve(payload); // { id: 6 };
     });
-  }).then((response) => {
-    dispatch(removeChannel(response.id));
-  });
+  })
+    .then((response) => {
+      dispatch(removeChannel(response.id));
+      dispatch(changeChannel());
+    })
+    .catch((err) => console.log(err));
+
+  new Promise((resolve) => {
+    // subscribe rename channel
+    socket.on("renameChannel", (payload) => {
+      resolve(payload); // { id: 7, name: "new name channel", removable: true }
+    });
+  })
+    .then((response) => {
+      dispatch(renameChannel(response));
+    })
+    .catch((err) => console.log(err));
+
+  new Promise((resolve) => {
+    // subscribe rename channel
+    socket.on("newChannel", (payload) => {
+      resolve(payload); // { id: 7, name: "new channel", removable: true }
+    });
+  })
+    .then((response) => {
+      dispatch(addChannel(response));
+      dispatch(changeChannel({ channel: response }));
+    })
+    .catch((err) => console.log(err));
 
   useEffect(() => {
     getChannels()
