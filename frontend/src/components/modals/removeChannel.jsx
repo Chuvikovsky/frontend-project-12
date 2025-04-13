@@ -4,7 +4,6 @@ import { removeChannelRequest } from "../../utils/requests.js";
 
 const RemoveChannel = ({ channel, onHide }) => {
   const handleRemove = () => {
-    console.log("handleRemove");
     removeChannelRequest(channel.id) // promise
       .then(() => {
         onHide();

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 // import { Navigate } from "react-router-dom";
 import { getChannels, getMessages } from "../utils/requests";
 import { useSelector, useDispatch } from "react-redux";
-import { addChannel } from "../store/channelsSlice";
+import { addChannel, removeChannel } from "../store/channelsSlice";
 import { addMessage } from "../store/messagesSlice";
 import { Channels } from "./Channels";
 import { Messages } from "./Messages";
@@ -40,7 +40,7 @@ const PageIndex = () => {
       resolve(payload); // { id: 6 };
     });
   }).then((response) => {
-    console.log(response);
+    dispatch(removeChannel(response.id));
   });
 
   useEffect(() => {
