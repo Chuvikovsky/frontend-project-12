@@ -11,7 +11,6 @@ import {
 import { addMessage } from "../store/messagesSlice";
 import { Channels } from "./Channels";
 import { Messages } from "./Messages";
-import { Header } from "./Header";
 import { MessageForm } from "./MessageForm";
 import { io } from "socket.io-client";
 
@@ -118,7 +117,6 @@ const PageIndex = () => {
 
   return (
     <div className="d-flex flex-column h-100">
-      <Header />
       <div className="container h-100 my-4 overflow-hidden rounded shadow">
         <div className="row h-100 bg-white flex-md-row">
           <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">

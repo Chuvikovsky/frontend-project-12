@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { Button, Form, Card } from "react-bootstrap";
-import { useSelector, useDispatch } from "react-redux";
-import { logIn, logOut, setUser } from "../store/authSlice";
+import { useDispatch } from "react-redux";
+import { logIn, setUser } from "../store/authSlice";
 import { logInRequest } from "../utils/requests";
 
 export const PageLogin = () => {
@@ -38,6 +38,7 @@ export const PageLogin = () => {
 
   return (
     <Card style={{ width: "18rem" }}>
+      <h3 style={{ textAlign: "center" }}>Login</h3>
       <Form onSubmit={formik.handleSubmit} className="p-3">
         <Form.Group controlId="username">
           <Form.Label>User name</Form.Label>
@@ -69,6 +70,9 @@ export const PageLogin = () => {
           Submit
         </Button>
       </Form>
+      <div style={{ textAlign: "center" }}>
+        no account? <Link to="/signup">register</Link>
+      </div>
     </Card>
   );
 };

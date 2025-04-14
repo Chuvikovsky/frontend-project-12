@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { Header } from "./components/Header.jsx";
 
 import {
   BrowserRouter,
@@ -10,13 +11,13 @@ import {
 import { PageLogin } from "./components/PagesLogin.jsx";
 import { PageIndex } from "./components/PageIndex.jsx";
 import { PageNotFound } from "./components/PageNotFound.jsx";
-import { useSelector, useDispatch } from "react-redux";
+import { PageSignup } from "./components/PageSignup.jsx";
+import { useSelector } from "react-redux";
 // import { logIn, logOut } from "./store/authSlice.js";
 
 const PrivateRouter = ({ children }) => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const location = useLocation();
-  // return children;
   return isLoggedIn ? (
     children
   ) : (
@@ -26,20 +27,24 @@ const PrivateRouter = ({ children }) => {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="login" element={<PageLogin />} />
-        <Route path="*" element={<PageNotFound />} />
-        <Route
-          path="/"
-          element={
-            <PrivateRouter>
-              <PageIndex />
-            </PrivateRouter>
-          }
-        />
-      </Routes>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="login" element={<PageLogin />} />
+          <Route path="signup" element={<PageSignup />} />
+          <Route path="*" element={<PageNotFound />} />
+          <Route
+            path="/"
+            element={
+              <PrivateRouter>
+                <PageIndex />
+              </PrivateRouter>
+            }
+          />
+        </Routes>
+      </BrowserRouter>
+    </>
   );
 }
 

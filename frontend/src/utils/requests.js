@@ -6,6 +6,10 @@ const logInRequest = (values) => {
   return axios.post(routes.loginPath(), values);
 };
 
+const signupRequest = (values) => {
+  return axios.post(routes.signupPath(), values);
+};
+
 const getChannels = () => {
   return axios.get(routes.channelsPath(), { headers: getAuthHeader() });
 };
@@ -42,6 +46,7 @@ const renameChannelRequest = ({ channelId, channelname }) => {
 
 export {
   logInRequest,
+  signupRequest,
   getChannels,
   getMessages,
   sendMessageRequest,
