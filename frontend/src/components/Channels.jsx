@@ -4,6 +4,7 @@ import { changeChannel } from "../store/channelsSlice";
 import getModal from "./modals/index";
 import { ButtonGroup, Dropdown } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
+import { ToastContainer, toast } from "react-toastify";
 
 const Channels = ({ channels, inputRef }) => {
   if (!channels && !channels.length) {
@@ -12,6 +13,7 @@ const Channels = ({ channels, inputRef }) => {
   const [modalInfo, setModalInfo] = useState({ type: null, item: null });
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const notify = (type, text) => toast[type](t(text));
   const currentChannelId = useSelector((state) => {
     const currentChannel = state.channels.currentChannel;
     if (currentChannel === null) {
@@ -34,7 +36,7 @@ const Channels = ({ channels, inputRef }) => {
       return null;
     }
     const Modal = getModal(type);
-    return <Modal channel={item} onHide={onHide} />;
+    return <Modal channel={item} onHide={onHide} notify={notify} />;
   };
 
   const channelClass = (id) => {
@@ -109,6 +111,7 @@ const Channels = ({ channels, inputRef }) => {
           </li>
         ))}
       </ul>
+      <ToastContainer />
     </>
   );
 };

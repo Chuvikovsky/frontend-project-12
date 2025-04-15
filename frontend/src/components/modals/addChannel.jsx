@@ -15,7 +15,7 @@ const getAllChannelNames = () => {
   return names;
 };
 
-const AddChannel = ({ channel = null, onHide }) => {
+const AddChannel = ({ channel = null, onHide, notify }) => {
   const isAddModal = channel === null;
   const inputRef = useRef(null);
   const { t } = useTranslation();
@@ -37,9 +37,10 @@ const AddChannel = ({ channel = null, onHide }) => {
         addChannelRequest(values.channelname) // promise
           .then(() => {
             onHide();
+            notify("success", "channelCreated");
           })
-          .catch((err) => {
-            console.log(err);
+          .catch(() => {
+            notify("error", "networkError");
           });
       } else {
         renameChannelRequest({
@@ -48,8 +49,11 @@ const AddChannel = ({ channel = null, onHide }) => {
         }) // promise
           .then(() => {
             onHide();
+            notify("success", "channelRenamed");
           })
-          .catch((err) => console.log(err));
+          .catch(() => {
+            notify("error", "networkError");
+          });
       }
     },
   });
@@ -60,41 +64,43 @@ const AddChannel = ({ channel = null, onHide }) => {
   }, []);
 
   return (
-    <Modal show>
-      <Modal.Header closeButton onHide={onHide}>
-        <Modal.Title>
-          {isAddModal ? t("addChannel") : t("renameChannel")}
-        </Modal.Title>
-      </Modal.Header>
-      <Modal.Body>
-        <Form onSubmit={formik.handleSubmit}>
-          <Form.Group>
-            <Form.Control
-              type="text"
-              placeholder={t("channelName")}
-              name="channelname"
-              onChange={formik.handleChange}
-              value={formik.values.channelname}
-              ref={inputRef}
-              isInvalid={
-                formik.touched.channelname && formik.errors.channelname
-              }
-            />
-            <Form.Control.Feedback type="invalid">
-              {formik.errors.channelname}
-            </Form.Control.Feedback>
-            <div className="d-flex justify-content-end">
-              <Button className="me-2 mt-2" variant="danger" onClick={onHide}>
-                {t("cancel")}
-              </Button>
-              <Button className="me-2 mt-2" variant="primary" type="submit">
-                {isAddModal ? t("add") : t("rename")}
-              </Button>
-            </div>
-          </Form.Group>
-        </Form>
-      </Modal.Body>
-    </Modal>
+    <>
+      <Modal show>
+        <Modal.Header closeButton onHide={onHide}>
+          <Modal.Title>
+            {isAddModal ? t("addChannel") : t("renameChannel")}
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form onSubmit={formik.handleSubmit}>
+            <Form.Group>
+              <Form.Control
+                type="text"
+                placeholder={t("channelName")}
+                name="channelname"
+                onChange={formik.handleChange}
+                value={formik.values.channelname}
+                ref={inputRef}
+                isInvalid={
+                  formik.touched.channelname && formik.errors.channelname
+                }
+              />
+              <Form.Control.Feedback type="invalid">
+                {formik.errors.channelname}
+              </Form.Control.Feedback>
+              <div className="d-flex justify-content-end">
+                <Button className="me-2 mt-2" variant="danger" onClick={onHide}>
+                  {t("cancel")}
+                </Button>
+                <Button className="me-2 mt-2" variant="primary" type="submit">
+                  {isAddModal ? t("add") : t("rename")}
+                </Button>
+              </div>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+      </Modal>
+    </>
   );
 };
 

@@ -3,14 +3,17 @@ import { Modal, Button } from "react-bootstrap";
 import { removeChannelRequest } from "../../utils/requests.js";
 import { useTranslation } from "react-i18next";
 
-const RemoveChannel = ({ channel, onHide }) => {
+const RemoveChannel = ({ channel, onHide, notify }) => {
   const { t } = useTranslation();
   const handleRemove = () => {
     removeChannelRequest(channel.id) // promise
       .then(() => {
         onHide();
+        notify("success", "channelRemoved");
       })
-      .catch((err) => console.log(err));
+      .catch(() => {
+        notify("error", "networkError");
+      });
   };
 
   return (

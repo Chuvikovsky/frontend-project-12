@@ -13,21 +13,19 @@ import { Channels } from "./Channels";
 import { Messages } from "./Messages";
 import { MessageForm } from "./MessageForm";
 import { io } from "socket.io-client";
+import { ToastContainer, toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const socket = io();
 
 const PageIndex = () => {
-  // const authHeader = getAuthHeader();
-  // if (authHeader === null) {
-  //   <Navigate to="/login" />;
-  // }
-
   const dispatch = useDispatch();
   const channels = useSelector((state) => state.channels.channelsList);
   const messages = useSelector((state) => state.messages);
   const inputRef = useRef(null);
   const [isChannelsLoaded, setChannelsLoaded] = useState(false);
   const [isMessagesLoaded, setMessagesLoaded] = useState(false);
+  const { t } = useTranslation();
 
   new Promise((resolve) => {
     socket.on("newMessage", (payload) => {
@@ -37,7 +35,9 @@ const PageIndex = () => {
     .then((response) => {
       dispatch(addMessage(response));
     })
-    .catch((err) => console.log(err));
+    .catch(() => {
+      toast.error(t("addMessageError"));
+    });
 
   new Promise((resolve) => {
     socket.on("removeChannel", (payload) => {
@@ -48,7 +48,9 @@ const PageIndex = () => {
       dispatch(removeChannel(response.id));
       dispatch(changeChannel());
     })
-    .catch((err) => console.log(err));
+    .catch(() => {
+      toast.error(t("removeChannelError"));
+    });
 
   new Promise((resolve) => {
     // subscribe rename channel
@@ -59,7 +61,9 @@ const PageIndex = () => {
     .then((response) => {
       dispatch(renameChannel(response));
     })
-    .catch((err) => console.log(err));
+    .catch(() => {
+      toast.error(t("renameChannelError"));
+    });
 
   new Promise((resolve) => {
     // subscribe rename channel
@@ -71,7 +75,9 @@ const PageIndex = () => {
       dispatch(addChannel(response));
       dispatch(changeChannel({ channel: response }));
     })
-    .catch((err) => console.log(err));
+    .catch(() => {
+      toast.error(t("newChannelError"));
+    });
 
   useEffect(() => {
     getChannels()
@@ -81,8 +87,8 @@ const PageIndex = () => {
         });
         setChannelsLoaded(true);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        toast.error(t("setChannelsError"));
       });
 
     getMessages()
@@ -92,8 +98,8 @@ const PageIndex = () => {
         });
         setMessagesLoaded(true);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        toast.error(t("setMessagesError"));
       });
   }, []);
 
@@ -116,16 +122,19 @@ const PageIndex = () => {
   };
 
   return (
-    <div className="d-flex flex-column h-100">
-      <div className="container h-100 my-4 overflow-hidden rounded shadow">
-        <div className="row h-100 bg-white flex-md-row">
-          <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
-            {showChannels()}
+    <>
+      <div className="d-flex flex-column h-100">
+        <div className="container h-100 my-4 overflow-hidden rounded shadow">
+          <div className="row h-100 bg-white flex-md-row">
+            <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
+              {showChannels()}
+            </div>
+            <div className="col p-0 h-100">{showMessages()}</div>
           </div>
-          <div className="col p-0 h-100">{showMessages()}</div>
         </div>
       </div>
-    </div>
+      <ToastContainer />
+    </>
   );
 };
 
