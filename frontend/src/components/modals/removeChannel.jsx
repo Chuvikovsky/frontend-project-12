@@ -1,8 +1,10 @@
 import React from "react";
 import { Modal, Button } from "react-bootstrap";
 import { removeChannelRequest } from "../../utils/requests.js";
+import { useTranslation } from "react-i18next";
 
 const RemoveChannel = ({ channel, onHide }) => {
+  const { t } = useTranslation();
   const handleRemove = () => {
     removeChannelRequest(channel.id) // promise
       .then(() => {
@@ -14,12 +16,15 @@ const RemoveChannel = ({ channel, onHide }) => {
   return (
     <Modal show>
       <Modal.Header closeButton onHide={onHide}>
-        <Modal.Title>Remove Channel # {channel.name}</Modal.Title>
+        <Modal.Title>
+          {t("removeChannel")} # {channel.name}
+        </Modal.Title>
       </Modal.Header>
-      <Modal.Body>
+      <Modal.Body>{t("areYouSureQuestion")}</Modal.Body>
+      <Modal.Footer>
         <div className="d-flex justify-content-end">
           <Button className="me-2 mt-2" variant="danger" onClick={onHide}>
-            Cancel
+            {t("cancel")}
           </Button>
           <Button
             className="me-2 mt-2"
@@ -27,10 +32,10 @@ const RemoveChannel = ({ channel, onHide }) => {
             type="submit"
             onClick={handleRemove}
           >
-            Remove
+            {t("remove")}
           </Button>
         </div>
-      </Modal.Body>
+      </Modal.Footer>
     </Modal>
   );
 };

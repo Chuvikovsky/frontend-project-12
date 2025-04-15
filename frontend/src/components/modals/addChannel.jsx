@@ -7,6 +7,7 @@ import {
   addChannelRequest,
   renameChannelRequest,
 } from "../../utils/requests.js";
+import { useTranslation } from "react-i18next";
 
 const getAllChannelNames = () => {
   const channels = useSelector((state) => state.channels.channelsList);
@@ -17,6 +18,7 @@ const getAllChannelNames = () => {
 const AddChannel = ({ channel = null, onHide }) => {
   const isAddModal = channel === null;
   const inputRef = useRef(null);
+  const { t } = useTranslation();
   const formik = useFormik({
     initialValues: {
       channelname: isAddModal ? "" : channel.name,
@@ -24,10 +26,10 @@ const AddChannel = ({ channel = null, onHide }) => {
     validationSchema: yup.object({
       channelname: yup
         .string()
-        .required("Required")
-        .min(3, "Must be at least 3 characters or more")
-        .max(20, "Must be 20 characters or less")
-        .notOneOf(getAllChannelNames(), "This channel name is already used"),
+        .required(t("required"))
+        .min(3, t("min3Characters"))
+        .max(20, t("max20Characters"))
+        .notOneOf(getAllChannelNames(), t("sameChannelName")),
     }),
     validateOnChange: false,
     onSubmit: (values) => {
@@ -61,7 +63,7 @@ const AddChannel = ({ channel = null, onHide }) => {
     <Modal show>
       <Modal.Header closeButton onHide={onHide}>
         <Modal.Title>
-          {isAddModal ? "Add Channel" : "Rename Channel"}
+          {isAddModal ? t("addChannel") : t("renameChannel")}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -69,7 +71,7 @@ const AddChannel = ({ channel = null, onHide }) => {
           <Form.Group>
             <Form.Control
               type="text"
-              placeholder="channel name"
+              placeholder={t("channelName")}
               name="channelname"
               onChange={formik.handleChange}
               value={formik.values.channelname}
@@ -83,10 +85,10 @@ const AddChannel = ({ channel = null, onHide }) => {
             </Form.Control.Feedback>
             <div className="d-flex justify-content-end">
               <Button className="me-2 mt-2" variant="danger" onClick={onHide}>
-                Cancel
+                {t("cancel")}
               </Button>
               <Button className="me-2 mt-2" variant="primary" type="submit">
-                {isAddModal ? "Add" : "Rename"}
+                {isAddModal ? t("add") : t("rename")}
               </Button>
             </div>
           </Form.Group>

@@ -6,10 +6,12 @@ import { Button, Form, Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { logIn, setUser } from "../store/authSlice";
 import { signupRequest } from "../utils/requests";
+import { useTranslation } from "react-i18next";
 
 export const PageSignup = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -19,17 +21,17 @@ export const PageSignup = () => {
     validationSchema: yup.object({
       username: yup
         .string()
-        .required("Required")
-        .min(3, "Must be at least 3 characters or more")
-        .max(20, "Must be 20 characters or less"),
+        .required(t("required"))
+        .min(3, t("min3Characters"))
+        .max(20, t("max20Characters")),
       password: yup
         .string()
-        .required("Required")
-        .min(6, "Must be at least 6 characters or more"),
+        .required(t("required"))
+        .min(6, t("min6Characters")),
       confirmpassword: yup
         .string()
-        .required("Required")
-        .oneOf([yup.ref("password")], "not equial to password"),
+        .required(t("required"))
+        .oneOf([yup.ref("password")], t("samePassword")),
     }),
     onSubmit: (values) => {
       const { username, password } = values;
@@ -46,7 +48,7 @@ export const PageSignup = () => {
             return;
           }
           if (err.isAxiosError && err.response.status === 409) {
-            formik.errors.username = "User already exists";
+            formik.errors.username = t("sameUser");
             return;
           }
           throw err;
@@ -58,12 +60,12 @@ export const PageSignup = () => {
     <Card style={{ width: "18rem" }}>
       <h3 style={{ textAlign: "center" }}>Signup</h3>
       <Form onSubmit={formik.handleSubmit} className="p-3">
-        <Form.Group controlId="username">
-          <Form.Label>User name</Form.Label>
+        <Form.Group controlId="username" className="mb-3">
+          {/*<Form.Label>{t("userName")}</Form.Label> */}
           <Form.Control
             onChange={formik.handleChange}
             value={formik.values.username}
-            placeholder="username"
+            placeholder={t("userName")}
             name="username"
             isInvalid={formik.touched.username && formik.errors.username}
             required
@@ -72,12 +74,12 @@ export const PageSignup = () => {
             {formik.errors.username}
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
+        <Form.Group controlId="password" className="mb-3">
+          {/*<Form.Label>{t("password")}</Form.Label> */}
           <Form.Control
             onChange={formik.handleChange}
             value={formik.values.password}
-            placeholder="password"
+            placeholder={t("password")}
             name="password"
             isInvalid={formik.touched.password && formik.errors.password}
             required
@@ -87,12 +89,12 @@ export const PageSignup = () => {
             {formik.errors.password}
           </Form.Control.Feedback>
         </Form.Group>
-        <Form.Group controlId="confirmpassword">
-          <Form.Label>Confirm password</Form.Label>
+        <Form.Group controlId="confirmpassword" className="mb-3">
+          {/*<Form.Label>{t("confirmPassword")}</Form.Label> */}
           <Form.Control
             onChange={formik.handleChange}
             value={formik.values.confirmpassword}
-            placeholder="confirm password"
+            placeholder={t("confirmPassword")}
             name="confirmpassword"
             isInvalid={
               formik.touched.confirmpassword && formik.errors.confirmpassword
@@ -105,7 +107,7 @@ export const PageSignup = () => {
           </Form.Control.Feedback>
         </Form.Group>
         <Button type="submit" variant="primary" className="me-2 mt-2">
-          Register
+          {t("register")}
         </Button>
       </Form>
     </Card>

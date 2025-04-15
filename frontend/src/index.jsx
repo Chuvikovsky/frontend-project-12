@@ -1,16 +1,9 @@
-import React, { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-// import "./css/styles.css";
-// import "./css/styles.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Provider } from "react-redux";
-import App from "./App.jsx";
-import store from "./store/index.js";
+import init from "./init.jsx";
 
-createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </StrictMode>
-);
+const app = async () => {
+  createRoot(document.getElementById("chat")).render(await init());
+};
+
+app();

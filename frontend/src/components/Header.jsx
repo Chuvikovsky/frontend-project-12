@@ -3,17 +3,19 @@ import { logOut } from "../store/authSlice";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Header = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const { t } = useTranslation();
   const handleClick = () => {
     dispatch(logOut());
   };
 
   const logInBtn = (
     <button type="button" className="btn btn-primary" onClick={handleClick}>
-      Выйти
+      {t("logOut")}
     </button>
   );
 

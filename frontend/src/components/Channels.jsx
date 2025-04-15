@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { changeChannel } from "../store/channelsSlice";
 import getModal from "./modals/index";
 import { ButtonGroup, Dropdown } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 
 const Channels = ({ channels, inputRef }) => {
   if (!channels && !channels.length) {
@@ -10,6 +11,7 @@ const Channels = ({ channels, inputRef }) => {
   }
   const [modalInfo, setModalInfo] = useState({ type: null, item: null });
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const currentChannelId = useSelector((state) => {
     const currentChannel = state.channels.currentChannel;
     if (currentChannel === null) {
@@ -69,12 +71,12 @@ const Channels = ({ channels, inputRef }) => {
           <Dropdown.Item
             onClick={() => setModalInfo({ type: "removing", item: ch })}
           >
-            Remove
+            {t("remove")}
           </Dropdown.Item>
           <Dropdown.Item
             onClick={() => setModalInfo({ type: "renaming", item: ch })}
           >
-            Rename
+            {t("rename")}
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
@@ -88,7 +90,7 @@ const Channels = ({ channels, inputRef }) => {
   return (
     <>
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
-        <b>Channels</b>
+        <b>{t("channels")}</b>
         <button
           type="button"
           className="p-0 text-primary btn btn-group-vertical"

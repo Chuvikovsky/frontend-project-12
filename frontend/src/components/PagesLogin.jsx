@@ -5,11 +5,13 @@ import { Button, Form, Card } from "react-bootstrap";
 import { useDispatch } from "react-redux";
 import { logIn, setUser } from "../store/authSlice";
 import { logInRequest } from "../utils/requests";
+import { useTranslation } from "react-i18next";
 
 export const PageLogin = () => {
   const dispatch = useDispatch();
   const [isAuthFailed, setAuthFailed] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -38,40 +40,40 @@ export const PageLogin = () => {
 
   return (
     <Card style={{ width: "18rem" }}>
-      <h3 style={{ textAlign: "center" }}>Login</h3>
+      <h3 style={{ textAlign: "center" }}>{t("login")}</h3>
       <Form onSubmit={formik.handleSubmit} className="p-3">
         <Form.Group controlId="username">
-          <Form.Label>User name</Form.Label>
+          <Form.Label>{t("userName")}</Form.Label>
           <Form.Control
             onChange={formik.handleChange}
             value={formik.values.username}
-            placeholder="username"
+            placeholder={t("userName")}
             name="username"
             isInvalid={isAuthFailed}
             required
           />
         </Form.Group>
         <Form.Group controlId="password">
-          <Form.Label>Password</Form.Label>
+          <Form.Label>{t("password")}</Form.Label>
           <Form.Control
             onChange={formik.handleChange}
             value={formik.values.password}
-            placeholder="password"
+            placeholder={t("password")}
             name="password"
             isInvalid={isAuthFailed}
             required
             type="password"
           />
           <Form.Control.Feedback type="invalid">
-            the username or password is incorrect
+            {t("incorrectLogin")}
           </Form.Control.Feedback>
         </Form.Group>
         <Button type="submit" variant="primary" className="me-2 mt-2">
-          Submit
+          {t("logInBtn")}
         </Button>
       </Form>
       <div style={{ textAlign: "center" }}>
-        no account? <Link to="/signup">register</Link>
+        {t("noAccountQuestion")} <Link to="/signup">{t("registration")}</Link>
       </div>
     </Card>
   );
