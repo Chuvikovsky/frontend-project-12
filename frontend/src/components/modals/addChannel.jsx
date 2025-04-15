@@ -8,6 +8,7 @@ import {
   renameChannelRequest,
 } from "../../utils/requests.js";
 import { useTranslation } from "react-i18next";
+import filter from "../../utils/profany.js";
 
 const getAllChannelNames = () => {
   const channels = useSelector((state) => state.channels.channelsList);
@@ -33,8 +34,9 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
     }),
     validateOnChange: false,
     onSubmit: (values) => {
+      const filteredName = filter(values.channelname);
       if (isAddModal) {
-        addChannelRequest(values.channelname) // promise
+        addChannelRequest(filteredName) // promise
           .then(() => {
             onHide();
             notify("success", "channelCreated");
@@ -45,7 +47,7 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
       } else {
         renameChannelRequest({
           channelId: channel.id,
-          channelname: values.channelname,
+          channelname: filteredName,
         }) // promise
           .then(() => {
             onHide();

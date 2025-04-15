@@ -47,5 +47,6 @@ export default {
     removeChannelError: "Ошибка при удалении канала",
     renameChannelError: "Ошибка при переименовании канала",
     newChannelError: "Ошибка при добавлении нового канала",
+    incorrectChannelName: "Некорректное название канала",
   },
 };

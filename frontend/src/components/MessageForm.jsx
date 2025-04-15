@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { addMessage } from "../store/messagesSlice.js";
 import { sendMessageRequest } from "../utils/requests.js";
 import { useTranslation } from "react-i18next";
+import filter from "../utils/profany.js";
 
 const MessageForm = ({ inputRef }) => {
   const [text, setText] = useState("");
@@ -17,7 +18,7 @@ const MessageForm = ({ inputRef }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newMessage = {
-      body: text,
+      body: filter(text),
       channelId,
       username,
     };
