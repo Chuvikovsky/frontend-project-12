@@ -63,7 +63,7 @@ export const PageSignup = () => {
         <h3 style={{ textAlign: "center" }}>{t("registration")}</h3>
         <Form onSubmit={formik.handleSubmit} className="p-3">
           <Form.Group controlId="username" className="mb-3">
-            {/*<Form.Label>{t("userName")}</Form.Label> */}
+            <Form.Label className="sr-only">{t("userName")}</Form.Label>
             <Form.Control
               onChange={formik.handleChange}
               value={formik.values.username}
@@ -77,7 +77,7 @@ export const PageSignup = () => {
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group controlId="password" className="mb-3">
-            {/*<Form.Label>{t("password")}</Form.Label> */}
+            <Form.Label className="sr-only">{t("password")}</Form.Label>
             <Form.Control
               onChange={formik.handleChange}
               value={formik.values.password}
@@ -92,7 +92,7 @@ export const PageSignup = () => {
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group controlId="confirmpassword" className="mb-3">
-            {/*<Form.Label>{t("confirmPassword")}</Form.Label> */}
+            <Form.Label className="sr-only">{t("confirmPassword")}</Form.Label>
             <Form.Control
               onChange={formik.handleChange}
               value={formik.values.confirmpassword}

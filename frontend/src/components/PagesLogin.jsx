@@ -44,7 +44,7 @@ export const PageLogin = () => {
         <h3 style={{ textAlign: "center" }}>{t("login")}</h3>
         <Form onSubmit={formik.handleSubmit} className="p-3">
           <Form.Group controlId="username" className="mb-3">
-            {/*<Form.Label>{t("userName")}</Form.Label> */}
+            {<Form.Label className="sr-only">{t("userNick")}</Form.Label>}
             <Form.Control
               onChange={formik.handleChange}
               value={formik.values.username}
@@ -55,7 +55,7 @@ export const PageLogin = () => {
             />
           </Form.Group>
           <Form.Group controlId="password">
-            {/*<Form.Label>{t("password")}</Form.Label> */}
+            {<Form.Label className="sr-only">{t("password")}</Form.Label>}
             <Form.Control
               onChange={formik.handleChange}
               value={formik.values.password}
