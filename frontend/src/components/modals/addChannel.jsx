@@ -83,7 +83,8 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={formik.handleSubmit}>
-            <Form.Group>
+            <Form.Group controlId="channelname">
+              <Form.Label className="sr-only">{t("channelName")}</Form.Label>
               <Form.Control
                 type="text"
                 placeholder={t("channelName")}
