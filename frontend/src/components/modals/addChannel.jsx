@@ -28,8 +28,8 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
       channelname: yup
         .string()
         .required(t("required"))
-        .min(3, t("min3Characters"))
-        .max(20, t("max20Characters"))
+        .min(3, t("from3to20Characters"))
+        .max(20, t("from3to20Characters"))
         .notOneOf(getAllChannelNames(), t("sameChannelName")),
     }),
     validateOnChange: false,
