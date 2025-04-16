@@ -20,7 +20,7 @@ export const PageLogin = () => {
     },
     onSubmit: (values) => {
       setAuthFailed(false);
-      logInRequest(values) // promise
+      return logInRequest(values) // promise
         .then((response) => {
           localStorage.setItem("token", JSON.stringify(response.data));
           dispatch(logIn());

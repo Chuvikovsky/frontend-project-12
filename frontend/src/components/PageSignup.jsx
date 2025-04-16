@@ -36,7 +36,7 @@ export const PageSignup = () => {
     }),
     onSubmit: (values) => {
       const { username, password } = values;
-      signupRequest({ username, password }) // promise
+      return signupRequest({ username, password }) // promise
         .then((response) => {
           localStorage.setItem("token", JSON.stringify(response.data));
           dispatch(logIn());
