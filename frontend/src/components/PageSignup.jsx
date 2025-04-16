@@ -108,7 +108,12 @@ export const PageSignup = () => {
               {formik.errors.confirmpassword}
             </Form.Control.Feedback>
           </Form.Group>
-          <Button type="submit" variant="primary" className="me-2 mt-2">
+          <Button
+            type="submit"
+            variant="primary"
+            className="me-2 mt-2"
+            disabled={formik.isSubmitting}
+          >
             {t("register")}
           </Button>
         </Form>

@@ -48,5 +48,6 @@ export default {
     renameChannelError: "Ошибка при переименовании канала",
     newChannelError: "Ошибка при добавлении нового канала",
     incorrectChannelName: "Некорректное название канала",
+    forbiddenWord: "Нельзя использовать нецензурные слова",
   },
 };

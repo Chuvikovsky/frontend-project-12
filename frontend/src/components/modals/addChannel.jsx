@@ -35,17 +35,24 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
     validateOnChange: false,
     onSubmit: (values) => {
       const filteredName = filter(values.channelname);
+      if (filteredName !== values.channelname) {
+        formik.setErrors({ channelname: t("forbiddenWord") });
+        formik.setValues({ channelname: filteredName });
+        formik.setSubmitting(false);
+        return;
+      }
       if (isAddModal) {
-        addChannelRequest(filteredName) // promise
+        return addChannelRequest(filteredName) // promise
           .then(() => {
             onHide();
             notify("success", "channelCreated");
           })
           .catch(() => {
+            formik.setSubmitting(false);
             notify("error", "networkError");
           });
       } else {
-        renameChannelRequest({
+        return renameChannelRequest({
           channelId: channel.id,
           channelname: filteredName,
         }) // promise
@@ -54,6 +61,7 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
             notify("success", "channelRenamed");
           })
           .catch(() => {
+            formik.setSubmitting(false);
             notify("error", "networkError");
           });
       }
@@ -94,7 +102,12 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
                 <Button className="me-2 mt-2" variant="danger" onClick={onHide}>
                   {t("cancel")}
                 </Button>
-                <Button className="me-2 mt-2" variant="primary" type="submit">
+                <Button
+                  className="me-2 mt-2"
+                  variant="primary"
+                  type="submit"
+                  disabled={formik.isSubmitting}
+                >
                   {isAddModal ? t("add") : t("rename")}
                 </Button>
               </div>
