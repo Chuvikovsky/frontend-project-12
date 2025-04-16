@@ -34,6 +34,7 @@ export default {
     required: "Обязательно поле",
     min3Characters: "Не менее 3 символов",
     min6Characters: "Не менее 6 символов",
+    from3to20Characters: "От 3 до 20 символов",
     max20Characters: "Не больше 20 символов",
     sameChannelName: "Название канала уже используется",
     samePassword: "Пароли должны совпадать",
