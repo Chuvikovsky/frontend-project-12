@@ -1,5 +1,6 @@
 export default {
   translation: {
+    userNick: "Ваш ник",
     userName: "Имя пользователя",
     login: "Войти",
     password: "Пароль",
@@ -17,7 +18,7 @@ export default {
     renameChannel: "Переименовать канал",
     addChannel: "Добавить канал",
     cancel: "Отменить",
-    areYouSureQuestion: "Вы уверены?",
+    areYouSureQuestion: "Уверены?",
     add: "Добавить",
     channelName: "Имя канала",
     enterYourMessage: "Введите сообщение...",

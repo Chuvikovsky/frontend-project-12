@@ -108,7 +108,7 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
                   type="submit"
                   disabled={formik.isSubmitting}
                 >
-                  {isAddModal ? t("add") : t("rename")}
+                  {t("send")}
                 </Button>
               </div>
             </Form.Group>

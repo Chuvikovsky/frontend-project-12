@@ -48,7 +48,7 @@ export const PageLogin = () => {
             <Form.Control
               onChange={formik.handleChange}
               value={formik.values.username}
-              placeholder={t("userName")}
+              placeholder={t("userNick")}
               name="username"
               isInvalid={isAuthFailed}
               required

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -60,7 +60,7 @@ export const PageSignup = () => {
   return (
     <>
       <Card style={{ width: "18rem" }}>
-        <h3 style={{ textAlign: "center" }}>Signup</h3>
+        <h3 style={{ textAlign: "center" }}>{t("registration")}</h3>
         <Form onSubmit={formik.handleSubmit} className="p-3">
           <Form.Group controlId="username" className="mb-3">
             {/*<Form.Label>{t("userName")}</Form.Label> */}
