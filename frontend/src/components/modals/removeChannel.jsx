@@ -26,12 +26,12 @@ const RemoveChannel = ({ channel, onHide, notify }) => {
       <Modal.Body>{t("areYouSureQuestion")}</Modal.Body>
       <Modal.Footer>
         <div className="d-flex justify-content-end">
-          <Button className="me-2 mt-2" variant="danger" onClick={onHide}>
+          <Button className="me-2 mt-2" variant="secondary" onClick={onHide}>
             {t("cancel")}
           </Button>
           <Button
             className="me-2 mt-2"
-            variant="primary"
+            variant="danger"
             type="submit"
             onClick={handleRemove}
           >

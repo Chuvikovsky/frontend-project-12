@@ -100,7 +100,11 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
                 {formik.errors.channelname}
               </Form.Control.Feedback>
               <div className="d-flex justify-content-end">
-                <Button className="me-2 mt-2" variant="danger" onClick={onHide}>
+                <Button
+                  className="me-2 mt-2"
+                  variant="secondary"
+                  onClick={onHide}
+                >
                   {t("cancel")}
                 </Button>
                 <Button

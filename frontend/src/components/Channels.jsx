@@ -68,9 +68,9 @@ const Channels = ({ channels, inputRef }) => {
           split
           id="dropdown-split-basic"
           variant={ch.id === currentChannelId ? "secondary" : "light"}
-          aria-label="Управление каналом"
+          aria-label={t("channelManagement")}
         >
-          <span className="sr-only">Управление каналом</span>
+          <span className="sr-only">{t("channelManagement")}</span>
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item

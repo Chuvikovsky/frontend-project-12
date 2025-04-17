@@ -44,6 +44,7 @@ export default {
     channelCreated: "Канал создан",
     channelRemoved: "Канал удален",
     channelRenamed: "Канал переименован",
+    channelManagement: "Управление каналом",
     addMessageError: "Ошибка при загрузке нового сообщения",
     setChannelsError: "Ошибка при загрузке каналов",
     setMessagesError: "Ошибка при загрузке сообщений",
