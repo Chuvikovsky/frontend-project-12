@@ -1,6 +1,6 @@
-import axios from "axios";
-import routes from "./routes.js";
-import getAuthHeader from "./authHeader.js";
+import axios from 'axios';
+import routes from './routes.js';
+import getAuthHeader from './authHeader.js';
 
 const logInRequest = (values) => {
   return axios.post(routes.loginPath(), values);

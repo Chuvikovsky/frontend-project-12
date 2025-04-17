@@ -1,4 +1,4 @@
-import filter from "leo-profanity";
+import filter from 'leo-profanity';
 
 // filter.loadDictionary("ru");
 

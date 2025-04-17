@@ -1,9 +1,9 @@
-import React from "react";
-import { logOut } from "../store/authSlice";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { logOut } from '../store/authSlice';
+import { useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -15,7 +15,7 @@ const Header = () => {
 
   const logInBtn = (
     <button type="button" className="btn btn-primary" onClick={handleClick}>
-      {t("logOut")}
+      {t('logOut')}
     </button>
   );
 
