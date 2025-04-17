@@ -6,13 +6,16 @@ const logInRequest = (values) => axios.post(routes.loginPath(), values);
 
 const signupRequest = (values) => axios.post(routes.signupPath(), values);
 
-const getChannels = () => axios.get(routes.channelsPath(), { headers: getAuthHeader() });
+const getChannels = () =>
+  axios.get(routes.channelsPath(), { headers: getAuthHeader() });
 
-const getMessages = () => axios.get(routes.messagesPath(), { headers: getAuthHeader() });
+const getMessages = () =>
+  axios.get(routes.messagesPath(), { headers: getAuthHeader() });
 
-const sendMessageRequest = (message) => axios.post(routes.messagesPath(), message, {
-  headers: getAuthHeader(),
-});
+const sendMessageRequest = (message) =>
+  axios.post(routes.messagesPath(), message, {
+    headers: getAuthHeader(),
+  });
 
 const addChannelRequest = (channelname) => {
   const newChannel = { name: channelname };
@@ -21,9 +24,10 @@ const addChannelRequest = (channelname) => {
   });
 };
 
-const removeChannelRequest = (channelId) => axios.delete(`${routes.channelsPath()}/${channelId}`, {
-  headers: getAuthHeader(),
-});
+const removeChannelRequest = (channelId) =>
+  axios.delete(`${routes.channelsPath()}/${channelId}`, {
+    headers: getAuthHeader(),
+  });
 
 const renameChannelRequest = ({ channelId, channelname }) => {
   const newChannelName = { name: channelname };

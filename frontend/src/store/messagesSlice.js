@@ -9,7 +9,7 @@ const messagesSlice = createSlice({
   reducers: {
     addMessage: (state, action) => {
       const isMessagePresent = state.messagesList.find(
-        (m) => m.id === action.payload.id,
+        (m) => m.id === action.payload.id
       );
       if (!isMessagePresent) {
         state.messagesList.push(action.payload);
@@ -20,7 +20,7 @@ const messagesSlice = createSlice({
     builder.addCase(removeChannel, (state, action) => {
       const channelId = action.payload;
       state.messagesList = state.messagesList.filter(
-        (m) => m.channelId !== channelId,
+        (m) => m.channelId !== channelId
       );
     });
   },

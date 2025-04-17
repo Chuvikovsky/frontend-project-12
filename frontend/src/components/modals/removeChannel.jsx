@@ -1,7 +1,7 @@
-import React from "react";
-import { Modal, Button } from "react-bootstrap";
-import { removeChannelRequest } from "../../utils/requests.js";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { Modal, Button } from 'react-bootstrap';
+import { removeChannelRequest } from '../../utils/requests.js';
+import { useTranslation } from 'react-i18next';
 
 const RemoveChannel = ({ channel, onHide, notify }) => {
   const { t } = useTranslation();
@@ -9,10 +9,10 @@ const RemoveChannel = ({ channel, onHide, notify }) => {
     removeChannelRequest(channel.id) // promise
       .then(() => {
         onHide();
-        notify("success", "channelRemoved");
+        notify('success', 'channelRemoved');
       })
       .catch(() => {
-        notify("error", "networkError");
+        notify('error', 'networkError');
       });
   };
 
@@ -20,14 +20,14 @@ const RemoveChannel = ({ channel, onHide, notify }) => {
     <Modal show>
       <Modal.Header closeButton onHide={onHide}>
         <Modal.Title>
-          {t("removeChannel")} # {channel.name}
+          {t('removeChannel')} # {channel.name}
         </Modal.Title>
       </Modal.Header>
-      <Modal.Body>{t("areYouSureQuestion")}</Modal.Body>
+      <Modal.Body>{t('areYouSureQuestion')}</Modal.Body>
       <Modal.Footer>
         <div className="d-flex justify-content-end">
           <Button className="me-2 mt-2" variant="secondary" onClick={onHide}>
-            {t("cancel")}
+            {t('cancel')}
           </Button>
           <Button
             className="me-2 mt-2"
@@ -35,7 +35,7 @@ const RemoveChannel = ({ channel, onHide, notify }) => {
             type="submit"
             onClick={handleRemove}
           >
-            {t("remove")}
+            {t('remove')}
           </Button>
         </div>
       </Modal.Footer>
