@@ -35,12 +35,12 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
     validateOnChange: false,
     onSubmit: (values) => {
       const filteredName = filter(values.channelname);
-      if (filteredName !== values.channelname) {
-        formik.setErrors({ channelname: t("forbiddenWord") });
-        formik.setValues({ channelname: filteredName });
-        formik.setSubmitting(false);
-        return;
-      }
+      // if (filteredName !== values.channelname) {
+      //   formik.setErrors({ channelname: t("forbiddenWord") });
+      //   formik.setValues({ channelname: filteredName });
+      //   formik.setSubmitting(false);
+      //   return;
+      // }
       if (isAddModal) {
         return addChannelRequest(filteredName) // promise
           .then(() => {
