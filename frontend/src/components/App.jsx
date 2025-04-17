@@ -1,17 +1,17 @@
-import React from 'react';
-import { Header } from './Header.jsx';
+import React from "react";
+import { Header } from "./Header.jsx";
 import {
   BrowserRouter,
   Routes,
   Route,
   useLocation,
   Navigate,
-} from 'react-router-dom';
-import { PageLogin } from './PagesLogin.jsx';
-import { PageIndex } from './PageIndex.jsx';
-import { PageNotFound } from './PageNotFound.jsx';
-import { PageSignup } from './PageSignup.jsx';
-import { useSelector } from 'react-redux';
+} from "react-router-dom";
+import { PageLogin } from "./PagesLogin.jsx";
+import { PageIndex } from "./PageIndex.jsx";
+import { PageNotFound } from "./PageNotFound.jsx";
+import { PageSignup } from "./PageSignup.jsx";
+import { useSelector } from "react-redux";
 
 const PrivateRouter = ({ children }) => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);

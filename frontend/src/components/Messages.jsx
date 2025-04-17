@@ -1,6 +1,6 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
-import { useTranslation } from 'react-i18next';
+import React from "react";
+import { useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 
 const showCurrentChannel = (channel) => {
   if (channel === null) {
@@ -36,7 +36,7 @@ const Messages = ({ messages, children }) => {
       <div className="bg-light mb-4 p-3 shadow-sm small">
         {showCurrentChannel(currentChannel)}
         <br />
-        {t('messages.counter.count', { count: filteredMessages.length })}
+        {t("messages.counter.count", { count: filteredMessages.length })}
       </div>
       <div id="messages-box" className="chat-messages overflow-auto px-5">
         {showMessages(filteredMessages)}

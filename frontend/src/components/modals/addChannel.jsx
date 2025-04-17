@@ -1,15 +1,14 @@
-import React, { useEffect, useRef } from 'react';
-import { Modal, Form, Button } from 'react-bootstrap';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useEffect, useRef } from "react";
+import { Modal, Form, Button } from "react-bootstrap";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import { useSelector } from "react-redux";
 import {
   addChannelRequest,
   renameChannelRequest,
-} from '../../utils/requests.js';
-import { changeChannel, addChannel } from '../../store/channelsSlice';
-import { useTranslation } from 'react-i18next';
-import filter from '../../utils/profany.js';
+} from "../../utils/requests.js";
+import { useTranslation } from "react-i18next";
+import filter from "../../utils/profany.js";
 
 const getAllChannelNames = () => {
   const channels = useSelector((state) => state.channels.channelsList);
@@ -20,19 +19,18 @@ const getAllChannelNames = () => {
 const AddChannel = ({ channel = null, onHide, notify }) => {
   const isAddModal = channel === null;
   const inputRef = useRef(null);
-  const dispatch = useDispatch();
   const { t } = useTranslation();
   const formik = useFormik({
     initialValues: {
-      channelname: isAddModal ? '' : channel.name,
+      channelname: isAddModal ? "" : channel.name,
     },
     validationSchema: yup.object({
       channelname: yup
         .string()
-        .required(t('required'))
-        .min(3, t('from3to20Characters'))
-        .max(20, t('from3to20Characters'))
-        .notOneOf(getAllChannelNames(), t('sameChannelName')),
+        .required(t("required"))
+        .min(3, t("from3to20Characters"))
+        .max(20, t("from3to20Characters"))
+        .notOneOf(getAllChannelNames(), t("sameChannelName")),
     }),
     validateOnChange: false,
     onSubmit: (values) => {
@@ -45,19 +43,13 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
       // }
       if (isAddModal) {
         return addChannelRequest(filteredName) // promise
-          .then((response) => {
-            // console.log(response.data);
-            dispatch(addChannel(response.data));
-            return response;
-          })
-          .then((response) => {
-            dispatch(changeChannel({ channel: response.data }));
+          .then(() => {
             onHide();
-            notify('success', 'channelCreated');
+            notify("success", "channelCreated");
           })
           .catch(() => {
             formik.setSubmitting(false);
-            notify('error', 'networkError');
+            notify("error", "networkError");
           });
       } else {
         return renameChannelRequest({
@@ -66,11 +58,11 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
         }) // promise
           .then(() => {
             onHide();
-            notify('success', 'channelRenamed');
+            notify("success", "channelRenamed");
           })
           .catch(() => {
             formik.setSubmitting(false);
-            notify('error', 'networkError');
+            notify("error", "networkError");
           });
       }
     },
@@ -86,16 +78,16 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
       <Modal show>
         <Modal.Header closeButton onHide={onHide}>
           <Modal.Title>
-            {isAddModal ? t('addChannel') : t('renameChannel')}
+            {isAddModal ? t("addChannel") : t("renameChannel")}
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form onSubmit={formik.handleSubmit}>
             <Form.Group controlId="channelname">
-              <Form.Label className="sr-only">{t('channelName')}</Form.Label>
+              <Form.Label className="sr-only">{t("channelName")}</Form.Label>
               <Form.Control
                 type="text"
-                placeholder={t('channelName')}
+                placeholder={t("channelName")}
                 name="channelname"
                 onChange={formik.handleChange}
                 value={formik.values.channelname}
@@ -113,7 +105,7 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
                   variant="secondary"
                   onClick={onHide}
                 >
-                  {t('cancel')}
+                  {t("cancel")}
                 </Button>
                 <Button
                   className="me-2 mt-2"
@@ -121,7 +113,7 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
                   type="submit"
                   disabled={formik.isSubmitting}
                 >
-                  {t('send')}
+                  {t("send")}
                 </Button>
               </div>
             </Form.Group>

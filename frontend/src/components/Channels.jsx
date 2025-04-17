@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { changeChannel } from '../store/channelsSlice';
-import getModal from './modals/index';
-import { ButtonGroup, Dropdown } from 'react-bootstrap';
-import { useTranslation } from 'react-i18next';
-import { ToastContainer, toast } from 'react-toastify';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { changeChannel } from "../store/channelsSlice";
+import getModal from "./modals/index";
+import { ButtonGroup, Dropdown } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
+import { ToastContainer, toast } from "react-toastify";
 
 const Channels = ({ channels, inputRef }) => {
   if (!channels && !channels.length) {
@@ -40,7 +40,7 @@ const Channels = ({ channels, inputRef }) => {
   };
 
   const channelClass = (id) => {
-    const selectedChannel = id === currentChannelId ? ' btn-secondary' : '';
+    const selectedChannel = id === currentChannelId ? " btn-secondary" : "";
     return `w-100 rounded-0 text-start btn${selectedChannel}`;
   };
 
@@ -67,21 +67,21 @@ const Channels = ({ channels, inputRef }) => {
         <Dropdown.Toggle
           split
           id="dropdown-split-basic"
-          variant={ch.id === currentChannelId ? 'secondary' : 'light'}
-          aria-label={t('channelManagement')}
+          variant={ch.id === currentChannelId ? "secondary" : "light"}
+          aria-label={t("channelManagement")}
         >
-          <span className="sr-only">{t('channelManagement')}</span>
+          <span className="sr-only">{t("channelManagement")}</span>
         </Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item
-            onClick={() => setModalInfo({ type: 'removing', item: ch })}
+            onClick={() => setModalInfo({ type: "removing", item: ch })}
           >
-            {t('remove')}
+            {t("remove")}
           </Dropdown.Item>
           <Dropdown.Item
-            onClick={() => setModalInfo({ type: 'renaming', item: ch })}
+            onClick={() => setModalInfo({ type: "renaming", item: ch })}
           >
-            {t('rename')}
+            {t("rename")}
           </Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
@@ -95,11 +95,11 @@ const Channels = ({ channels, inputRef }) => {
   return (
     <>
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
-        <b>{t('channels')}</b>
+        <b>{t("channels")}</b>
         <button
           type="button"
           className="p-0 text-primary btn btn-group-vertical"
-          onClick={() => setModalInfo({ type: 'adding', item: null })}
+          onClick={() => setModalInfo({ type: "adding", item: null })}
         >
           +
         </button>

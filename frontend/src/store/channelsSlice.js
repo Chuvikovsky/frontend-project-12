@@ -1,8 +1,8 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
 
-const defaultChannelId = '1';
+const defaultChannelId = "1";
 const channelsSlice = createSlice({
-  name: 'channels',
+  name: "channels",
   initialState: {
     currentChannel: null,
     channelsList: [],
