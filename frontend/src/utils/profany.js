@@ -1,6 +1,6 @@
 import filter from "leo-profanity";
 
-filter.loadDictionary("ru");
+// filter.loadDictionary("ru");
 
 export default (text) => {
   return filter.clean(text);
