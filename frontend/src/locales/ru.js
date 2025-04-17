@@ -23,6 +23,7 @@ export default {
     channelName: "Имя канала",
     enterYourMessage: "Введите сообщение...",
     send: "Отправить",
+    newMessage: "Новое сообщение",
     messages: {
       counter: {
         count_zero: "{{count}} сообщений",

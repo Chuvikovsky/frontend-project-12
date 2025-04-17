@@ -68,7 +68,10 @@ const Channels = ({ channels, inputRef }) => {
           split
           id="dropdown-split-basic"
           variant={ch.id === currentChannelId ? "secondary" : "light"}
-        />
+          aria-label="Управление каналом"
+        >
+          <span className="sr-only">Управление каналом</span>
+        </Dropdown.Toggle>
         <Dropdown.Menu>
           <Dropdown.Item
             onClick={() => setModalInfo({ type: "removing", item: ch })}

@@ -38,7 +38,7 @@ const MessageForm = ({ inputRef }) => {
         <div className="input-group has-validation">
           <input
             name="body"
-            aria-label="Новое сообщение"
+            aria-label={t("newMessage")}
             placeholder={t("enterYourMessage")}
             className="border-0 p-0 ps-2 form-control outline-secondary"
             value={text}
@@ -51,6 +51,7 @@ const MessageForm = ({ inputRef }) => {
             className="btn btn-group-vertical btn-outline-secondary"
           >
             {"=>"}
+            <span className="sr-only form-label">{t("send")}</span>
           </button>
         </div>
       </form>
