@@ -22,6 +22,3 @@ develop:
 build:
 	rm -rf frontend/dist
 	npm run build
-
-start-server:
-	npx start-server
