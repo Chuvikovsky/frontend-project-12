@@ -1,5 +1,5 @@
-import AddChannel from "./addChannel";
-import RemoveChannel from "./removeChannel";
+import AddChannel from './addChannel';
+import RemoveChannel from './removeChannel';
 
 const modals = {
   adding: AddChannel,
