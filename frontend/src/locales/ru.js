@@ -42,7 +42,7 @@ export default {
     sameUser: "Такой пользователь уже существует",
     networkError: "Ошибка соединения",
     channelCreated: "Канал создан",
-    channelRemoved: "Канал удален",
+    channelRemoved: "Канал удалён",
     channelRenamed: "Канал переименован",
     channelManagement: "Управление каналом",
     addMessageError: "Ошибка при загрузке нового сообщения",
