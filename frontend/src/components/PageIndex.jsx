@@ -53,7 +53,6 @@ const PageIndex = () => {
     });
 
   new Promise((resolve) => {
-    // subscribe rename channel
     socket.on("renameChannel", (payload) => {
       resolve(payload); // { id: 7, name: "new name channel", removable: true }
     });
@@ -66,14 +65,13 @@ const PageIndex = () => {
     });
 
   new Promise((resolve) => {
-    // subscribe rename channel
     socket.on("newChannel", (payload) => {
       resolve(payload); // { id: 7, name: "new channel", removable: true }
     });
   })
     .then((response) => {
       dispatch(addChannel(response));
-      dispatch(changeChannel({ channel: response }));
+      // dispatch(changeChannel({ channel: response }));
     })
     .catch(() => {
       toast.error(t("newChannelError"));

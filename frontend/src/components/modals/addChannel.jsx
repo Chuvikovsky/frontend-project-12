@@ -2,11 +2,12 @@ import React, { useEffect, useRef } from "react";
 import { Modal, Form, Button } from "react-bootstrap";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addChannelRequest,
   renameChannelRequest,
 } from "../../utils/requests.js";
+import { changeChannel, addChannel } from "../../store/channelsSlice";
 import { useTranslation } from "react-i18next";
 import filter from "../../utils/profany.js";
 
@@ -19,6 +20,7 @@ const getAllChannelNames = () => {
 const AddChannel = ({ channel = null, onHide, notify }) => {
   const isAddModal = channel === null;
   const inputRef = useRef(null);
+  const dispatch = useDispatch();
   const { t } = useTranslation();
   const formik = useFormik({
     initialValues: {
@@ -43,7 +45,13 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
       // }
       if (isAddModal) {
         return addChannelRequest(filteredName) // promise
-          .then(() => {
+          .then((response) => {
+            // console.log(response.data);
+            dispatch(addChannel(response.data));
+            return response;
+          })
+          .then((response) => {
+            dispatch(changeChannel({ channel: response.data }));
             onHide();
             notify("success", "channelCreated");
           })
