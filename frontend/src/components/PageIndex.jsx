@@ -1,20 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from 'react';
 // import { Navigate } from "react-router-dom";
-import { getChannels, getMessages } from "../utils/requests";
-import { useSelector, useDispatch } from "react-redux";
+import { getChannels, getMessages } from '../utils/requests';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   addChannel,
   removeChannel,
   changeChannel,
   renameChannel,
-} from "../store/channelsSlice";
-import { addMessage } from "../store/messagesSlice";
-import { Channels } from "./Channels";
-import { Messages } from "./Messages";
-import { MessageForm } from "./MessageForm";
-import { io } from "socket.io-client";
-import { ToastContainer, toast } from "react-toastify";
-import { useTranslation } from "react-i18next";
+} from '../store/channelsSlice';
+import { addMessage } from '../store/messagesSlice';
+import { Channels } from './Channels';
+import { Messages } from './Messages';
+import { MessageForm } from './MessageForm';
+import { io } from 'socket.io-client';
+import { ToastContainer, toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
 
 const socket = io();
 
@@ -28,7 +28,7 @@ const PageIndex = () => {
   const { t } = useTranslation();
 
   new Promise((resolve) => {
-    socket.on("newMessage", (payload) => {
+    socket.on('newMessage', (payload) => {
       resolve(payload);
     });
   })
@@ -36,11 +36,11 @@ const PageIndex = () => {
       dispatch(addMessage(response));
     })
     .catch(() => {
-      toast.error(t("addMessageError"));
+      toast.error(t('addMessageError'));
     });
 
   new Promise((resolve) => {
-    socket.on("removeChannel", (payload) => {
+    socket.on('removeChannel', (payload) => {
       resolve(payload); // { id: 6 };
     });
   })
@@ -49,12 +49,12 @@ const PageIndex = () => {
       dispatch(changeChannel());
     })
     .catch(() => {
-      toast.error(t("removeChannelError"));
+      toast.error(t('removeChannelError'));
     });
 
   new Promise((resolve) => {
     // subscribe rename channel
-    socket.on("renameChannel", (payload) => {
+    socket.on('renameChannel', (payload) => {
       resolve(payload); // { id: 7, name: "new name channel", removable: true }
     });
   })
@@ -62,21 +62,21 @@ const PageIndex = () => {
       dispatch(renameChannel(response));
     })
     .catch(() => {
-      toast.error(t("renameChannelError"));
+      toast.error(t('renameChannelError'));
     });
 
   new Promise((resolve) => {
     // subscribe rename channel
-    socket.on("newChannel", (payload) => {
+    socket.on('newChannel', (payload) => {
       resolve(payload); // { id: 7, name: "new channel", removable: true }
     });
   })
     .then((response) => {
       dispatch(addChannel(response));
-      dispatch(changeChannel({ channel: response }));
+      // dispatch(changeChannel({ channel: response }));
     })
     .catch(() => {
-      toast.error(t("newChannelError"));
+      toast.error(t('newChannelError'));
     });
 
   useEffect(() => {
@@ -88,7 +88,7 @@ const PageIndex = () => {
         setChannelsLoaded(true);
       })
       .catch(() => {
-        toast.error(t("setChannelsError"));
+        toast.error(t('setChannelsError'));
       });
 
     getMessages()
@@ -99,7 +99,7 @@ const PageIndex = () => {
         setMessagesLoaded(true);
       })
       .catch(() => {
-        toast.error(t("setMessagesError"));
+        toast.error(t('setMessagesError'));
       });
   }, []);
 
