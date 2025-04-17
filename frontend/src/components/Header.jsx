@@ -8,6 +8,11 @@ import { useTranslation } from 'react-i18next';
 const Header = () => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  let username = null;
+  if (isLoggedIn) {
+    username = useSelector((state) => state.auth.username);
+  }
+
   const { t } = useTranslation();
   const handleClick = () => {
     dispatch(logOut());
