@@ -3,16 +3,15 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { Button, Form, Card } from 'react-bootstrap';
-import { useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
-import { logIn, setUser } from '../store/authSlice';
 import { signupRequest } from '../utils/requests';
+import useAuth from '../utils/useAuth';
 
 export const PageSignup = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const auth = useAuth();
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -39,8 +38,7 @@ export const PageSignup = () => {
       return signupRequest({ username, password }) // promise
         .then((response) => {
           localStorage.setItem('token', JSON.stringify(response.data));
-          dispatch(logIn());
-          dispatch(setUser({ username: response.data.username }));
+          auth.logIn(response.data.username);
           navigate('/');
         })
         .catch((err) => {

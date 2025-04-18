@@ -4,12 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { addMessage } from '../store/messagesSlice.js';
 import { sendMessageRequest } from '../utils/requests.js';
 import filter from '../utils/profany.js';
+import useAuth from '../utils/useAuth.jsx';
 
 const MessageForm = ({ inputRef }) => {
   const [text, setText] = useState('');
   const dispath = useDispatch();
-  const channelId = useSelector((state) => state.channels.currentChannel.id);
-  const username = useSelector((state) => state.auth.username);
+  const channelId = useSelector((state) => state.channels.currentChannelId);
+  const { user } = useAuth();
   const { t } = useTranslation();
   const handleChange = (e) => {
     setText(e.target.value);
@@ -20,7 +21,7 @@ const MessageForm = ({ inputRef }) => {
     const newMessage = {
       body: filter(text),
       channelId,
-      username,
+      username: user.username,
     };
     sendMessageRequest(newMessage) // promise
       .then((response) => {

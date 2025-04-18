@@ -7,20 +7,13 @@ import getModal from './modals/index';
 import { changeChannel } from '../store/channelsSlice';
 
 const Channels = ({ channels, inputRef }) => {
-  if (!channels && !channels.length) {
-    return null;
-  }
   const [modalInfo, setModalInfo] = useState({ type: null, item: null });
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const notify = (type, text) => toast[type](t(text));
-  const currentChannelId = useSelector((state) => {
-    const { currentChannel } = state.channels;
-    if (currentChannel === null) {
-      return null;
-    }
-    return currentChannel.id;
-  });
+  const currentChannelId = useSelector(
+    (state) => state.channels.currentChannelId
+  );
 
   const handleChangeChannel = (channel) => {
     dispatch(changeChannel({ channel }));

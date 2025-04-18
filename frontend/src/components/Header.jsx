@@ -1,19 +1,18 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { logOut } from '../store/authSlice';
+import useAuth from '../utils/useAuth';
 
 const Header = () => {
-  const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const { t } = useTranslation();
-  const handleClick = () => {
-    dispatch(logOut());
-  };
+  const auth = useAuth();
 
   const logInBtn = (
-    <button type="button" className="btn btn-primary" onClick={handleClick}>
+    <button
+      type="button"
+      className="btn btn-primary"
+      onClick={() => auth.logOut()}
+    >
       {t('logOut')}
     </button>
   );
@@ -22,7 +21,7 @@ const Header = () => {
     <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
       <div className="container">
         <Link to="/">Hexlet Chat</Link>
-        {isLoggedIn ? logInBtn : null}
+        {auth.user.isLoggedIn ? logInBtn : null}
       </div>
     </nav>
   );

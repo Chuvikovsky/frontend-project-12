@@ -8,11 +8,15 @@ import {
   addChannelRequest,
   renameChannelRequest,
 } from '../../utils/requests.js';
-import { addChannel, changeChannel } from '../../store/channelsSlice';
+import {
+  addChannel,
+  changeChannel,
+  channelSelectors,
+} from '../../store/channelsSlice';
 import filter from '../../utils/profany.js';
 
 const getAllChannelNames = () => {
-  const channels = useSelector((state) => state.channels.channelsList);
+  const channels = useSelector(channelSelectors.selectAll);
   const names = channels.map((ch) => ch.name);
   return names;
 };

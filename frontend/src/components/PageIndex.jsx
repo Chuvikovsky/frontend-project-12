@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from 'react';
-// import { Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from 'react-redux';
 import { io } from 'socket.io-client';
 import { ToastContainer, toast } from 'react-toastify';
@@ -10,6 +9,7 @@ import {
   removeChannel,
   changeChannel,
   renameChannel,
+  channelSelectors,
 } from '../store/channelsSlice';
 import { addMessage } from '../store/messagesSlice';
 import { Channels } from './Channels';
@@ -20,7 +20,7 @@ const socket = io();
 
 const PageIndex = () => {
   const dispatch = useDispatch();
-  const channels = useSelector((state) => state.channels.channelsList);
+  const channels = useSelector(channelSelectors.selectAll);
   const messages = useSelector((state) => state.messages);
   const inputRef = useRef(null);
   const [isChannelsLoaded, setChannelsLoaded] = useState(false);
@@ -48,8 +48,9 @@ const PageIndex = () => {
       dispatch(removeChannel(response.id));
       dispatch(changeChannel());
     })
-    .catch(() => {
-      toast.error(t('removeChannelError'));
+    .catch((err) => {
+      console.log(err);
+      // toast.error(t('removeChannelError'));
     });
 
   new Promise((resolve) => {
@@ -59,7 +60,7 @@ const PageIndex = () => {
     });
   })
     .then((response) => {
-      dispatch(renameChannel(response));
+      dispatch(renameChannel({ id: response.id, changes: response }));
     })
     .catch(() => {
       toast.error(t('renameChannelError'));
@@ -73,7 +74,6 @@ const PageIndex = () => {
   })
     .then((response) => {
       dispatch(addChannel(response));
-      // dispatch(changeChannel({ channel: response }));
     })
     .catch(() => {
       toast.error(t('newChannelError'));
@@ -87,7 +87,7 @@ const PageIndex = () => {
         });
         setChannelsLoaded(true);
       })
-      .catch(() => {
+      .catch((err) => {
         toast.error(t('setChannelsError'));
       });
 

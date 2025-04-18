@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
+import { channelSelectors } from '../store/channelsSlice';
 
 const showCurrentChannel = (channel) => {
   if (channel === null) {
@@ -25,9 +26,14 @@ const showMessages = (messages) => {
 };
 
 const Messages = ({ messages, children }) => {
-  const currentChannel = useSelector((state) => state.channels.currentChannel);
+  const currentChannelId = useSelector(
+    (state) => state.channels.currentChannelId
+  );
+  const currentChannel = useSelector((state) =>
+    channelSelectors.selectById(state, currentChannelId)
+  );
   const filteredMessages = messages.messagesList.filter(
-    (m) => m.channelId === currentChannel.id,
+    (m) => m.channelId === currentChannelId
   );
   const { t } = useTranslation();
 
