@@ -10,7 +10,9 @@ const Channels = ({ channels, inputRef }) => {
   const [modalInfo, setModalInfo] = useState({ type: null, item: null });
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const notify = (type, text) => toast[type](t(text));
+  const notify = (type, text) => {
+    toast[type](t(text), { toastId: 'channel', containerId: 'channel' });
+  };
   const currentChannelId = useSelector(
     (state) => state.channels.currentChannelId,
   );
@@ -42,8 +44,7 @@ const Channels = ({ channels, inputRef }) => {
       className={channelClass(ch.id)}
       onClick={() => handleChangeChannel(ch)}
     >
-      #
-      {ch.name}
+      #{ch.name}
     </button>
   );
 
@@ -54,8 +55,7 @@ const Channels = ({ channels, inputRef }) => {
         className={channelClass(ch.id)}
         onClick={() => handleChangeChannel(ch)}
       >
-        #
-        {ch.name}
+        #{ch.name}
       </button>
       <Dropdown.Toggle
         split
@@ -106,7 +106,7 @@ const Channels = ({ channels, inputRef }) => {
           </li>
         ))}
       </ul>
-      <ToastContainer />
+      <ToastContainer containerId="channel" />
     </>
   );
 };
