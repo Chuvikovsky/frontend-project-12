@@ -1,9 +1,8 @@
 import React from 'react';
-import { logOut } from '../store/authSlice';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { logOut } from '../store/authSlice';
 
 const Header = () => {
   const dispatch = useDispatch();

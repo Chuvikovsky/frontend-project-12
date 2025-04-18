@@ -1,7 +1,7 @@
 import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
-import { removeChannelRequest } from '../../utils/requests.js';
 import { useTranslation } from 'react-i18next';
+import { removeChannelRequest } from '../../utils/requests.js';
 
 const RemoveChannel = ({ channel, onHide, notify }) => {
   const { t } = useTranslation();

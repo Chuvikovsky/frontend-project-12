@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { changeChannel } from '../store/channelsSlice';
-import getModal from './modals/index';
 import { ButtonGroup, Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
+import getModal from './modals/index';
+import { changeChannel } from '../store/channelsSlice';
 
 const Channels = ({ channels, inputRef }) => {
   if (!channels && !channels.length) {
@@ -15,7 +15,7 @@ const Channels = ({ channels, inputRef }) => {
   const { t } = useTranslation();
   const notify = (type, text) => toast[type](t(text));
   const currentChannelId = useSelector((state) => {
-    const currentChannel = state.channels.currentChannel;
+    const { currentChannel } = state.channels;
     if (currentChannel === null) {
       return null;
     }
@@ -44,49 +44,45 @@ const Channels = ({ channels, inputRef }) => {
     return `w-100 rounded-0 text-start btn${selectedChannel}`;
   };
 
-  const showNonRemovableChannel = (ch) => {
-    return (
+  const showNonRemovableChannel = (ch) => (
+    <button
+      className={channelClass(ch.id)}
+      onClick={() => handleChangeChannel(ch)}
+    >
+      # {ch.name}
+    </button>
+  );
+
+  const showRemovableChannel = (ch) => (
+    <Dropdown as={ButtonGroup} className="w-100">
       <button
         className={channelClass(ch.id)}
         onClick={() => handleChangeChannel(ch)}
       >
         # {ch.name}
       </button>
-    );
-  };
-
-  const showRemovableChannel = (ch) => {
-    return (
-      <Dropdown as={ButtonGroup} className="w-100">
-        <button
-          className={channelClass(ch.id)}
-          onClick={() => handleChangeChannel(ch)}
+      <Dropdown.Toggle
+        split
+        id="dropdown-split-basic"
+        variant={ch.id === currentChannelId ? 'secondary' : 'light'}
+        aria-label={t('channelManagement')}
+      >
+        <span className="sr-only">{t('channelManagement')}</span>
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+        <Dropdown.Item
+          onClick={() => setModalInfo({ type: 'removing', item: ch })}
         >
-          # {ch.name}
-        </button>
-        <Dropdown.Toggle
-          split
-          id="dropdown-split-basic"
-          variant={ch.id === currentChannelId ? 'secondary' : 'light'}
-          aria-label={t('channelManagement')}
+          {t('remove')}
+        </Dropdown.Item>
+        <Dropdown.Item
+          onClick={() => setModalInfo({ type: 'renaming', item: ch })}
         >
-          <span className="sr-only">{t('channelManagement')}</span>
-        </Dropdown.Toggle>
-        <Dropdown.Menu>
-          <Dropdown.Item
-            onClick={() => setModalInfo({ type: 'removing', item: ch })}
-          >
-            {t('remove')}
-          </Dropdown.Item>
-          <Dropdown.Item
-            onClick={() => setModalInfo({ type: 'renaming', item: ch })}
-          >
-            {t('rename')}
-          </Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-    );
-  };
+          {t('rename')}
+        </Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+  );
 
   useEffect(() => {
     inputRef.current.focus();

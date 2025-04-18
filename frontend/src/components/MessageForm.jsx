@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import { addMessage } from '../store/messagesSlice.js';
 import { sendMessageRequest } from '../utils/requests.js';
-import { useTranslation } from 'react-i18next';
 import filter from '../utils/profany.js';
 
 const MessageForm = ({ inputRef }) => {

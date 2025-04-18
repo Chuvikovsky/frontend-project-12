@@ -27,7 +27,7 @@ const showMessages = (messages) => {
 const Messages = ({ messages, children }) => {
   const currentChannel = useSelector((state) => state.channels.currentChannel);
   const filteredMessages = messages.messagesList.filter(
-    (m) => m.channelId === currentChannel.id
+    (m) => m.channelId === currentChannel.id,
   );
   const { t } = useTranslation();
 

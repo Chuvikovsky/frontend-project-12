@@ -3,12 +3,12 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import {
   addChannelRequest,
   renameChannelRequest,
 } from '../../utils/requests.js';
 import { addChannel, changeChannel } from '../../store/channelsSlice';
-import { useTranslation } from 'react-i18next';
 import filter from '../../utils/profany.js';
 
 const getAllChannelNames = () => {
@@ -58,20 +58,19 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
             formik.setSubmitting(false);
             notify('error', 'networkError');
           });
-      } else {
-        return renameChannelRequest({
-          channelId: channel.id,
-          channelname: filteredName,
-        }) // promise
-          .then(() => {
-            onHide();
-            notify('success', 'channelRenamed');
-          })
-          .catch(() => {
-            formik.setSubmitting(false);
-            notify('error', 'networkError');
-          });
       }
+      return renameChannelRequest({
+        channelId: channel.id,
+        channelname: filteredName,
+      }) // promise
+        .then(() => {
+          onHide();
+          notify('success', 'channelRenamed');
+        })
+        .catch(() => {
+          formik.setSubmitting(false);
+          notify('error', 'networkError');
+        });
     },
   });
 

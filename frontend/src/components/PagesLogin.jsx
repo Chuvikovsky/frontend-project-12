@@ -3,10 +3,10 @@ import { useFormik } from 'formik';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button, Form, Card } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { logIn, setUser } from '../store/authSlice';
-import { logInRequest } from '../utils/requests';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
+import { logIn, setUser } from '../store/authSlice';
+import { logInRequest } from '../utils/requests';
 
 export const PageLogin = () => {
   const dispatch = useDispatch();

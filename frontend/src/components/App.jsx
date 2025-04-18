@@ -1,5 +1,4 @@
 import React from 'react';
-import { Header } from './Header.jsx';
 import {
   BrowserRouter,
   Routes,
@@ -7,11 +6,12 @@ import {
   useLocation,
   Navigate,
 } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Header } from './Header.jsx';
 import { PageLogin } from './PagesLogin.jsx';
 import { PageIndex } from './PageIndex.jsx';
 import { PageNotFound } from './PageNotFound.jsx';
 import { PageSignup } from './PageSignup.jsx';
-import { useSelector } from 'react-redux';
 
 const PrivateRouter = ({ children }) => {
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);

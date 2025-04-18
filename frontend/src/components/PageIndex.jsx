@@ -1,7 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 // import { Navigate } from "react-router-dom";
-import { getChannels, getMessages } from '../utils/requests';
 import { useSelector, useDispatch } from 'react-redux';
+import { io } from 'socket.io-client';
+import { ToastContainer, toast } from 'react-toastify';
+import { useTranslation } from 'react-i18next';
+import { getChannels, getMessages } from '../utils/requests';
 import {
   addChannel,
   removeChannel,
@@ -12,9 +15,6 @@ import { addMessage } from '../store/messagesSlice';
 import { Channels } from './Channels';
 import { Messages } from './Messages';
 import { MessageForm } from './MessageForm';
-import { io } from 'socket.io-client';
-import { ToastContainer, toast } from 'react-toastify';
-import { useTranslation } from 'react-i18next';
 
 const socket = io();
 
