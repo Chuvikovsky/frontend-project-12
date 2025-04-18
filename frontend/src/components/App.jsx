@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -29,10 +29,17 @@ const AuthProvider = ({ children }) => {
     });
   };
 
+  const authHandler = useMemo(
+    () => ({
+      user,
+      logIn,
+      logOut,
+    }),
+    [user]
+  );
+
   return (
-    <AuthContext.Provider value={{ user, logIn, logOut }}>
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={authHandler}>{children}</AuthContext.Provider>
   );
 };
 
@@ -57,11 +64,11 @@ const App = () => (
         <Route path="*" element={<PageNotFound />} />
         <Route
           path="/"
-          element={(
+          element={
             <PrivateRouter>
               <PageIndex />
             </PrivateRouter>
-            )}
+          }
         />
       </Routes>
     </BrowserRouter>

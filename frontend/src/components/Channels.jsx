@@ -14,7 +14,7 @@ const Channels = ({ channels, inputRef }) => {
     toast[type](t(text), { toastId: 'channel', containerId: 'channel' });
   };
   const currentChannelId = useSelector(
-    (state) => state.channels.currentChannelId,
+    (state) => state.channels.currentChannelId
   );
   const handleChangeChannel = (channel) => {
     dispatch(changeChannel(channel.id));
@@ -44,7 +44,8 @@ const Channels = ({ channels, inputRef }) => {
       className={channelClass(ch.id)}
       onClick={() => handleChangeChannel(ch)}
     >
-      #{ch.name}
+      # 
+      {ch.name}
     </button>
   );
 
@@ -55,7 +56,8 @@ const Channels = ({ channels, inputRef }) => {
         className={channelClass(ch.id)}
         onClick={() => handleChangeChannel(ch)}
       >
-        #{ch.name}
+        # 
+        {ch.name}
       </button>
       <Dropdown.Toggle
         split
@@ -82,7 +84,7 @@ const Channels = ({ channels, inputRef }) => {
 
   useEffect(() => {
     inputRef.current.focus();
-  }, [currentChannelId]);
+  }, [currentChannelId, inputRef]);
 
   return (
     <>

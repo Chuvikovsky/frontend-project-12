@@ -6,7 +6,6 @@ import useAuth from '../utils/useAuth';
 const Header = () => {
   const { t } = useTranslation();
   const auth = useAuth();
-
   const logInBtn = (
     <button
       type="button"

@@ -107,7 +107,7 @@ const PageIndex = () => {
         });
     };
     getData();
-  }, []);
+  });
 
   return (
     <>
