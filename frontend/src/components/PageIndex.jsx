@@ -31,6 +31,7 @@ const PageIndex = () => {
     });
   })
     .then((response) => {
+      console.log('mes-res');
       dispatch(addMessage(response));
     })
     .catch(() => {
@@ -107,7 +108,7 @@ const PageIndex = () => {
         });
     };
     getData();
-  });
+  }, []);
 
   return (
     <>
