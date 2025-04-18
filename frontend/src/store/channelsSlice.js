@@ -13,20 +13,20 @@ const channelsSlice = createSlice({
     addChannel: (state, { payload }) => {
       channelsAdapter.addOne(state, payload);
     },
-    changeChannel: (state, { payload }) =>
-      !payload
-        ? { ...state, currentChannelId: defaultChannelId }
-        : { ...state, currentChannelId: payload },
+    changeChannel: (state, { payload }) => (!payload
+      ? { ...state, currentChannelId: defaultChannelId }
+      : { ...state, currentChannelId: payload }),
     removeChannel: channelsAdapter.removeOne,
     renameChannel: channelsAdapter.updateOne,
   },
 });
 
 const channelSelectors = channelsAdapter.getSelectors(
-  (state) => state.channels
+  (state) => state.channels,
 );
 
-export const { addChannel, changeChannel, removeChannel, renameChannel } =
-  channelsSlice.actions;
+export const {
+  addChannel, changeChannel, removeChannel, renameChannel,
+} = channelsSlice.actions;
 export { channelSelectors };
 export default channelsSlice.reducer;

@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
       logIn,
       logOut,
     }),
-    [user]
+    [user],
   );
 
   return (
@@ -64,11 +64,11 @@ const App = () => (
         <Route path="*" element={<PageNotFound />} />
         <Route
           path="/"
-          element={
+          element={(
             <PrivateRouter>
               <PageIndex />
             </PrivateRouter>
-          }
+          )}
         />
       </Routes>
     </BrowserRouter>
