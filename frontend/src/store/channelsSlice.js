@@ -28,11 +28,12 @@ const channelsSlice = createSlice({
   },
 });
 
-export const { addChannel, changeChannel, removeChannel, renameChannel } =
-  channelsSlice.actions;
+export const {
+  addChannel, changeChannel, removeChannel, renameChannel,
+} = channelsSlice.actions;
 
 const channelSelectors = channelsAdapter.getSelectors(
-  (state) => state.channels
+  (state) => state.channels,
 );
 
 export { channelSelectors };

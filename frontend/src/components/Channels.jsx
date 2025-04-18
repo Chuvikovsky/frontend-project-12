@@ -12,7 +12,7 @@ const Channels = ({ channels, inputRef }) => {
   const { t } = useTranslation();
   const notify = (type, text) => toast[type](t(text));
   const currentChannelId = useSelector(
-    (state) => state.channels.currentChannelId
+    (state) => state.channels.currentChannelId,
   );
 
   const handleChangeChannel = (channel) => {
