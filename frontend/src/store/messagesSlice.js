@@ -22,7 +22,7 @@ const messagesSlice = createSlice({
 });
 
 const messagesSelectors = messagesAdapter.getSelectors(
-  (state) => state.messages
+  (state) => state.messages,
 );
 
 export { messagesSelectors };

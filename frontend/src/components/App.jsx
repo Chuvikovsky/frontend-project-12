@@ -47,27 +47,25 @@ const PrivateRouter = ({ children }) => {
   );
 };
 
-const App = () => {
-  return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Header />
-        <Routes>
-          <Route path="login" element={<PageLogin />} />
-          <Route path="signup" element={<PageSignup />} />
-          <Route path="*" element={<PageNotFound />} />
-          <Route
-            path="/"
-            element={(
-              <PrivateRouter>
-                <PageIndex />
-              </PrivateRouter>
+const App = () => (
+  <AuthProvider>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="login" element={<PageLogin />} />
+        <Route path="signup" element={<PageSignup />} />
+        <Route path="*" element={<PageNotFound />} />
+        <Route
+          path="/"
+          element={(
+            <PrivateRouter>
+              <PageIndex />
+            </PrivateRouter>
             )}
-          />
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
-  );
-};
+        />
+      </Routes>
+    </BrowserRouter>
+  </AuthProvider>
+);
 
 export default App;

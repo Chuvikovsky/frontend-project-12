@@ -1,9 +1,6 @@
 const getAuthHeader = () => {
   const token = JSON.parse(localStorage.getItem('token'));
-  if (token && token.token) {
-    return { Authorization: `Bearer ${token.token}` };
-  }
-  return null;
+  return token && token.token ? { Authorization: `Bearer ${token.token}` } : null;
 };
 
 export default getAuthHeader;

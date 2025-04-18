@@ -12,9 +12,8 @@ const Channels = ({ channels, inputRef }) => {
   const { t } = useTranslation();
   const notify = (type, text) => toast[type](t(text));
   const currentChannelId = useSelector(
-    (state) => state.channels.currentChannelId
+    (state) => state.channels.currentChannelId,
   );
-
   const handleChangeChannel = (channel) => {
     dispatch(changeChannel(channel.id));
   };
@@ -43,7 +42,7 @@ const Channels = ({ channels, inputRef }) => {
       className={channelClass(ch.id)}
       onClick={() => handleChangeChannel(ch)}
     >
-      # 
+      #
       {ch.name}
     </button>
   );
@@ -55,7 +54,7 @@ const Channels = ({ channels, inputRef }) => {
         className={channelClass(ch.id)}
         onClick={() => handleChangeChannel(ch)}
       >
-        # 
+        #
         {ch.name}
       </button>
       <Dropdown.Toggle

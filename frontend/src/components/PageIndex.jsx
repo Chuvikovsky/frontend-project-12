@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { io } from 'socket.io-client';
 import { ToastContainer, toast } from 'react-toastify';
@@ -23,8 +23,6 @@ const PageIndex = () => {
   const channels = useSelector(channelSelectors.selectAll);
   const messages = useSelector(messagesSelectors.selectAll);
   const inputRef = useRef(null);
-  const [isChannelsLoaded, setChannelsLoaded] = useState(false);
-  const [isMessagesLoaded, setMessagesLoaded] = useState(false);
   const { t } = useTranslation();
 
   new Promise((resolve) => {
@@ -86,7 +84,7 @@ const PageIndex = () => {
           response.data.forEach((ch) => {
             dispatch(addChannel(ch));
           });
-          setChannelsLoaded(true);
+          // setChannelsLoaded(true);
         })
         .then(() => {
           dispatch(changeChannel());
@@ -101,7 +99,7 @@ const PageIndex = () => {
           response.data.forEach((m) => {
             dispatch(addMessage(m));
           });
-          setMessagesLoaded(true);
+          // setMessagesLoaded(true);
         })
         .catch((e) => {
           console.log(e);
@@ -111,33 +109,19 @@ const PageIndex = () => {
     getData();
   }, []);
 
-  const showChannels = () => {
-    if (isChannelsLoaded && isMessagesLoaded) {
-      return <Channels channels={channels} inputRef={inputRef} />;
-    }
-    return null;
-  };
-
-  const showMessages = () => {
-    if (isChannelsLoaded && isMessagesLoaded) {
-      return (
-        <Messages messages={messages}>
-          <MessageForm inputRef={inputRef} />
-        </Messages>
-      );
-    }
-    return null;
-  };
-
   return (
     <>
       <div className="d-flex flex-column h-100">
         <div className="container h-100 my-4 overflow-hidden rounded shadow">
           <div className="row h-100 bg-white flex-md-row">
             <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
-              {showChannels()}
+              <Channels channels={channels} inputRef={inputRef} />
             </div>
-            <div className="col p-0 h-100">{showMessages()}</div>
+            <div className="col p-0 h-100">
+              <Messages messages={messages}>
+                <MessageForm inputRef={inputRef} />
+              </Messages>
+            </div>
           </div>
         </div>
       </div>

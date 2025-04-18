@@ -4,14 +4,15 @@ import { useTranslation } from 'react-i18next';
 import { channelSelectors } from '../store/channelsSlice';
 
 const showCurrentChannel = (channel) => {
-  if (channel === null) {
+  if (!channel) {
     return null;
   }
   return (
-  <b>
-    # 
-    {channel.name}
-  </b>);
+    <b>
+      #
+      {channel.name}
+    </b>
+  );
 };
 
 const showMessages = (messages) => {
@@ -23,7 +24,7 @@ const showMessages = (messages) => {
             <span>
               {m.username}
               :
-            </span> 
+            </span>
             {m.body}
           </li>
         ))}
@@ -34,12 +35,9 @@ const showMessages = (messages) => {
 };
 
 const Messages = ({ messages, children }) => {
-  console.log(messages);
   const channelId = useSelector((state) => state.channels.currentChannelId);
 
-  const currentChannel = useSelector((state) =>
-    channelSelectors.selectById(state, channelId)
-  );
+  const currentChannel = useSelector((state) => channelSelectors.selectById(state, channelId));
   const filteredMessages = messages.filter((m) => m.channelId === channelId);
   const { t } = useTranslation();
 

@@ -21,11 +21,10 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
-  const getAllChannelNames = () => {
-    const channels = useSelector(channelSelectors.selectAll);
-    const names = channels.map((ch) => ch.name);
-    return names;
-  };
+  const allChannelNames = useSelector(channelSelectors.selectAll).map(
+    (ch) => ch.name,
+  );
+
   const formik = useFormik({
     initialValues: {
       channelname: isAddModal ? '' : channel.name,
@@ -36,7 +35,7 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
         .required(t('required'))
         .min(3, t('from3to20Characters'))
         .max(20, t('from3to20Characters'))
-        .notOneOf(getAllChannelNames(), t('sameChannelName')),
+        .notOneOf(allChannelNames, t('sameChannelName')),
     }),
     validateOnChange: false,
     onSubmit: (values) => {
@@ -47,8 +46,8 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
       //   formik.setSubmitting(false);
       //   return;
       // }
-      if (isAddModal) {
-        return addChannelRequest(filteredName) // promise
+      return isAddModal
+        ? addChannelRequest(filteredName) // promise
           .then((response) => {
             dispatch(addChannel(response.data));
             return response;
@@ -61,20 +60,19 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
           .catch(() => {
             formik.setSubmitting(false);
             notify('error', 'networkError');
+          })
+        : renameChannelRequest({
+          channelId: channel.id,
+          channelname: filteredName,
+        }) // promise
+          .then(() => {
+            onHide();
+            notify('success', 'channelRenamed');
+          })
+          .catch(() => {
+            formik.setSubmitting(false);
+            notify('error', 'networkError');
           });
-      }
-      return renameChannelRequest({
-        channelId: channel.id,
-        channelname: filteredName,
-      }) // promise
-        .then(() => {
-          onHide();
-          notify('success', 'channelRenamed');
-        })
-        .catch(() => {
-          formik.setSubmitting(false);
-          notify('error', 'networkError');
-        });
     },
   });
 
