@@ -53,5 +53,7 @@ export default {
     newChannelError: 'Ошибка при добавлении нового канала',
     incorrectChannelName: 'Некорректное название канала',
     forbiddenWord: 'Нельзя использовать нецензурные слова',
+    pageNotFound: 'Страница не найдена',
+    logoHexChat: 'Hexlet Chat',
   },
 };

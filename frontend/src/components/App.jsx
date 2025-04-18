@@ -6,11 +6,11 @@ import {
   useLocation,
   Navigate,
 } from 'react-router-dom';
-import { Header } from './Header.jsx';
-import { PageLogin } from './PagesLogin.jsx';
-import { PageIndex } from './PageIndex.jsx';
-import { PageNotFound } from './PageNotFound.jsx';
-import { PageSignup } from './PageSignup.jsx';
+import Header from './Header.jsx';
+import PageLogin from './PagesLogin.jsx';
+import PageIndex from './PageIndex.jsx';
+import PageNotFound from './PageNotFound.jsx';
+import PageSignup from './PageSignup.jsx';
 import AuthContext from '../store/authContext.js';
 import useAuth from '../utils/useAuth.jsx';
 
@@ -47,7 +47,7 @@ const PrivateRouter = ({ children }) => {
   );
 };
 
-function App() {
+const App = () => {
   return (
     <AuthProvider>
       <BrowserRouter>
@@ -58,16 +58,16 @@ function App() {
           <Route path="*" element={<PageNotFound />} />
           <Route
             path="/"
-            element={
+            element={(
               <PrivateRouter>
                 <PageIndex />
               </PrivateRouter>
-            }
+            )}
           />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
   );
-}
+};
 
 export default App;

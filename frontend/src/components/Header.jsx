@@ -20,11 +20,11 @@ const Header = () => {
   return (
     <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
       <div className="container">
-        <Link to="/">Hexlet Chat</Link>
+        <Link to="/">{t('logoHexChat')}</Link>
         {auth.user.isLoggedIn ? logInBtn : null}
       </div>
     </nav>
   );
 };
 
-export { Header };
+export default Header;

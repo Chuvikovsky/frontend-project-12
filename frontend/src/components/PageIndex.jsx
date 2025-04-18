@@ -11,17 +11,17 @@ import {
   renameChannel,
   channelSelectors,
 } from '../store/channelsSlice';
-import { addMessage } from '../store/messagesSlice';
-import { Channels } from './Channels';
-import { Messages } from './Messages';
-import { MessageForm } from './MessageForm';
+import { addMessage, messagesSelectors } from '../store/messagesSlice';
+import Channels from './Channels';
+import Messages from './Messages';
+import MessageForm from './MessageForm';
 
 const socket = io();
 
 const PageIndex = () => {
   const dispatch = useDispatch();
   const channels = useSelector(channelSelectors.selectAll);
-  const messages = useSelector((state) => state.messages);
+  const messages = useSelector(messagesSelectors.selectAll);
   const inputRef = useRef(null);
   const [isChannelsLoaded, setChannelsLoaded] = useState(false);
   const [isMessagesLoaded, setMessagesLoaded] = useState(false);
@@ -80,27 +80,35 @@ const PageIndex = () => {
     });
 
   useEffect(() => {
-    getChannels()
-      .then((response) => {
-        response.data.forEach((ch) => {
-          dispatch(addChannel(ch));
+    const getData = () => {
+      getChannels()
+        .then((response) => {
+          response.data.forEach((ch) => {
+            dispatch(addChannel(ch));
+          });
+          setChannelsLoaded(true);
+        })
+        .then(() => {
+          dispatch(changeChannel());
+        })
+        .catch((e) => {
+          console.log(e);
+          toast.error(t('setChannelsError'));
         });
-        setChannelsLoaded(true);
-      })
-      .catch((err) => {
-        toast.error(t('setChannelsError'));
-      });
 
-    getMessages()
-      .then((response) => {
-        response.data.forEach((m) => {
-          dispatch(addMessage(m));
+      getMessages()
+        .then((response) => {
+          response.data.forEach((m) => {
+            dispatch(addMessage(m));
+          });
+          setMessagesLoaded(true);
+        })
+        .catch((e) => {
+          console.log(e);
+          toast.error(t('setMessagesError'));
         });
-        setMessagesLoaded(true);
-      })
-      .catch(() => {
-        toast.error(t('setMessagesError'));
-      });
+    };
+    getData();
   }, []);
 
   const showChannels = () => {
@@ -138,4 +146,4 @@ const PageIndex = () => {
   );
 };
 
-export { PageIndex };
+export default PageIndex;

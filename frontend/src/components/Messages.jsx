@@ -7,7 +7,11 @@ const showCurrentChannel = (channel) => {
   if (channel === null) {
     return null;
   }
-  return <b># {channel.name}</b>;
+  return (
+  <b>
+    # 
+    {channel.name}
+  </b>);
 };
 
 const showMessages = (messages) => {
@@ -16,7 +20,11 @@ const showMessages = (messages) => {
       <ul className="nav">
         {messages.map((m) => (
           <li key={m.id} className="w-100">
-            <span>{m.username}:</span> {m.body}
+            <span>
+              {m.username}
+              :
+            </span> 
+            {m.body}
           </li>
         ))}
       </ul>
@@ -26,13 +34,13 @@ const showMessages = (messages) => {
 };
 
 const Messages = ({ messages, children }) => {
-  const currentChannelId = useSelector(
-    (state) => state.channels.currentChannelId,
+  console.log(messages);
+  const channelId = useSelector((state) => state.channels.currentChannelId);
+
+  const currentChannel = useSelector((state) =>
+    channelSelectors.selectById(state, channelId)
   );
-  const currentChannel = useSelector((state) => channelSelectors.selectById(state, currentChannelId));
-  const filteredMessages = messages.messagesList.filter(
-    (m) => m.channelId === currentChannelId,
-  );
+  const filteredMessages = messages.filter((m) => m.channelId === channelId);
   const { t } = useTranslation();
 
   return (
@@ -50,4 +58,4 @@ const Messages = ({ messages, children }) => {
   );
 };
 
-export { Messages };
+export default Messages;

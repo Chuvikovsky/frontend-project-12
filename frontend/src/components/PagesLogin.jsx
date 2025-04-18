@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { logInRequest } from '../utils/requests';
 import useAuth from '../utils/useAuth';
 
-export const PageLogin = () => {
+const PageLogin = () => {
   const [isAuthFailed, setAuthFailed] = useState(false);
   const navigate = useNavigate();
   const { t } = useTranslation();
@@ -77,10 +77,13 @@ export const PageLogin = () => {
           </Button>
         </Form>
         <div style={{ textAlign: 'center' }}>
-          {t('noAccountQuestion')} <Link to="/signup">{t('registration')}</Link>
+          {t('noAccountQuestion')}
+          <Link to="/signup">{t('registration')}</Link>
         </div>
       </Card>
       <ToastContainer />
     </>
   );
 };
+
+export default PageLogin;

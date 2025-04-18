@@ -15,17 +15,17 @@ import {
 } from '../../store/channelsSlice';
 import filter from '../../utils/profany.js';
 
-const getAllChannelNames = () => {
-  const channels = useSelector(channelSelectors.selectAll);
-  const names = channels.map((ch) => ch.name);
-  return names;
-};
-
 const AddChannel = ({ channel = null, onHide, notify }) => {
   const isAddModal = channel === null;
   const inputRef = useRef(null);
   const dispatch = useDispatch();
   const { t } = useTranslation();
+
+  const getAllChannelNames = () => {
+    const channels = useSelector(channelSelectors.selectAll);
+    const names = channels.map((ch) => ch.name);
+    return names;
+  };
   const formik = useFormik({
     initialValues: {
       channelname: isAddModal ? '' : channel.name,
@@ -54,7 +54,7 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
             return response;
           })
           .then((response) => {
-            dispatch(changeChannel({ channel: response.data }));
+            dispatch(changeChannel(response.data.id));
             onHide();
             notify('success', 'channelCreated');
           })
@@ -84,53 +84,51 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
   }, []);
 
   return (
-    <>
-      <Modal show>
-        <Modal.Header closeButton onHide={onHide}>
-          <Modal.Title>
-            {isAddModal ? t('addChannel') : t('renameChannel')}
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form onSubmit={formik.handleSubmit}>
-            <Form.Group controlId="channelname">
-              <Form.Label className="sr-only">{t('channelName')}</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder={t('channelName')}
-                name="channelname"
-                onChange={formik.handleChange}
-                value={formik.values.channelname}
-                ref={inputRef}
-                isInvalid={
-                  formik.touched.channelname && formik.errors.channelname
-                }
-              />
-              <Form.Control.Feedback type="invalid">
-                {formik.errors.channelname}
-              </Form.Control.Feedback>
-              <div className="d-flex justify-content-end">
-                <Button
-                  className="me-2 mt-2"
-                  variant="secondary"
-                  onClick={onHide}
-                >
-                  {t('cancel')}
-                </Button>
-                <Button
-                  className="me-2 mt-2"
-                  variant="primary"
-                  type="submit"
-                  disabled={formik.isSubmitting}
-                >
-                  {t('send')}
-                </Button>
-              </div>
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-      </Modal>
-    </>
+    <Modal show>
+      <Modal.Header closeButton onHide={onHide}>
+        <Modal.Title>
+          {isAddModal ? t('addChannel') : t('renameChannel')}
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form onSubmit={formik.handleSubmit}>
+          <Form.Group controlId="channelname">
+            <Form.Label className="sr-only">{t('channelName')}</Form.Label>
+            <Form.Control
+              type="text"
+              placeholder={t('channelName')}
+              name="channelname"
+              onChange={formik.handleChange}
+              value={formik.values.channelname}
+              ref={inputRef}
+              isInvalid={
+                formik.touched.channelname && formik.errors.channelname
+              }
+            />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.channelname}
+            </Form.Control.Feedback>
+            <div className="d-flex justify-content-end">
+              <Button
+                className="me-2 mt-2"
+                variant="secondary"
+                onClick={onHide}
+              >
+                {t('cancel')}
+              </Button>
+              <Button
+                className="me-2 mt-2"
+                variant="primary"
+                type="submit"
+                disabled={formik.isSubmitting}
+              >
+                {t('send')}
+              </Button>
+            </div>
+          </Form.Group>
+        </Form>
+      </Modal.Body>
+    </Modal>
   );
 };
 

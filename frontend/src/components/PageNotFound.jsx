@@ -1,3 +1,9 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-export const PageNotFound = () => <h3>Page not found (404)</h3>;
+const PageNotFound = () => {
+  const { t } = useTranslation();
+  return <h3>{t('pageNotFound')}</h3>;
+};
+
+export default PageNotFound;

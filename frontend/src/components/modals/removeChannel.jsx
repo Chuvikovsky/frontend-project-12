@@ -20,7 +20,9 @@ const RemoveChannel = ({ channel, onHide, notify }) => {
     <Modal show>
       <Modal.Header closeButton onHide={onHide}>
         <Modal.Title>
-          {t('removeChannel')} # {channel.name}
+          {t('removeChannel')} 
+          # 
+          {channel.name}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>{t('areYouSureQuestion')}</Modal.Body>

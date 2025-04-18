@@ -60,4 +60,4 @@ const MessageForm = ({ inputRef }) => {
   );
 };
 
-export { MessageForm };
+export default MessageForm;

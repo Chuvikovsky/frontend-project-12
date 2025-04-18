@@ -8,7 +8,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import { signupRequest } from '../utils/requests';
 import useAuth from '../utils/useAuth';
 
-export const PageSignup = () => {
+const PageSignup = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const auth = useAuth();
@@ -120,3 +120,5 @@ export const PageSignup = () => {
     </>
   );
 };
+
+export default PageSignup;

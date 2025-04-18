@@ -12,11 +12,11 @@ const Channels = ({ channels, inputRef }) => {
   const { t } = useTranslation();
   const notify = (type, text) => toast[type](t(text));
   const currentChannelId = useSelector(
-    (state) => state.channels.currentChannelId,
+    (state) => state.channels.currentChannelId
   );
 
   const handleChangeChannel = (channel) => {
-    dispatch(changeChannel({ channel }));
+    dispatch(changeChannel(channel.id));
   };
 
   const onHide = () => {
@@ -39,20 +39,24 @@ const Channels = ({ channels, inputRef }) => {
 
   const showNonRemovableChannel = (ch) => (
     <button
+      type="button"
       className={channelClass(ch.id)}
       onClick={() => handleChangeChannel(ch)}
     >
-      # {ch.name}
+      # 
+      {ch.name}
     </button>
   );
 
   const showRemovableChannel = (ch) => (
     <Dropdown as={ButtonGroup} className="w-100">
       <button
+        type="button"
         className={channelClass(ch.id)}
         onClick={() => handleChangeChannel(ch)}
       >
-        # {ch.name}
+        # 
+        {ch.name}
       </button>
       <Dropdown.Toggle
         split
@@ -108,4 +112,4 @@ const Channels = ({ channels, inputRef }) => {
   );
 };
 
-export { Channels };
+export default Channels;
