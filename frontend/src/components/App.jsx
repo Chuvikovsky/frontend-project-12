@@ -5,25 +5,25 @@ import {
   useLocation,
   Navigate,
 } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import Header from './Header.jsx';
 import PageLogin from './PagesLogin.jsx';
 import PageIndex from './PageIndex.jsx';
 import PageNotFound from './PageNotFound.jsx';
 import PageSignup from './PageSignup.jsx';
-import { useSelector } from 'react-redux';
 import { localRoutes } from '../utils/routes.js';
 
 const PrivateRouter = ({ children }) => {
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const location = useLocation();
 
   return isLoggedIn
     ? (
-        children
-      )
+      children
+    )
     : (
-        <Navigate to={localRoutes.login} state={{ from: location }} />
-      );
+      <Navigate to={localRoutes.login} state={{ from: location }} />
+    );
 };
 
 const App = () => (

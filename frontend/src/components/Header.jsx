@@ -5,7 +5,7 @@ import { logOut } from '../store/authSlice';
 
 const Header = () => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const { t } = useTranslation();
   const logInBtn = (
     <button

@@ -4,9 +4,9 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Button, Form, Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
+import { useDispatch } from 'react-redux';
 import { logInRequest } from '../utils/requests';
 import { logIn } from '../store/authSlice';
-import { useDispatch } from 'react-redux';
 import { setToken } from '../utils/localStorage';
 
 const PageLogin = () => {

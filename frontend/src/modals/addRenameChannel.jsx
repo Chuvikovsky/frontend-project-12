@@ -23,7 +23,7 @@ const AddChannel = ({ channel = null, notify }) => {
   const { t } = useTranslation();
 
   const allChannelNames = useSelector(channelSelectors.selectAll).map(
-    ch => ch.name,
+    (ch) => ch.name,
   );
 
   const formik = useFormik({
@@ -43,31 +43,31 @@ const AddChannel = ({ channel = null, notify }) => {
       const filteredName = filter(values.channelname);
       return isAddModal
         ? addChannelRequest(filteredName)
-            .then((response) => {
-              dispatch(addChannel(response.data));
-              return response;
-            })
-            .then((response) => {
-              dispatch(changeChannel(response.data.id));
-              dispatch(closeModal());
-              notify('success', 'channelCreated');
-            })
-            .catch(() => {
-              formik.setSubmitting(false);
-              notify('error', 'networkError');
-            })
-        : renameChannelRequest({
-            channelId: channel.id,
-            channelname: filteredName,
+          .then((response) => {
+            dispatch(addChannel(response.data));
+            return response;
           })
-            .then(() => {
-              dispatch(closeModal());
-              notify('success', 'channelRenamed');
-            })
-            .catch(() => {
-              formik.setSubmitting(false);
-              notify('error', 'networkError');
-            });
+          .then((response) => {
+            dispatch(changeChannel(response.data.id));
+            dispatch(closeModal());
+            notify('success', 'channelCreated');
+          })
+          .catch(() => {
+            formik.setSubmitting(false);
+            notify('error', 'networkError');
+          })
+        : renameChannelRequest({
+          channelId: channel.id,
+          channelname: filteredName,
+        })
+          .then(() => {
+            dispatch(closeModal());
+            notify('success', 'channelRenamed');
+          })
+          .catch(() => {
+            formik.setSubmitting(false);
+            notify('error', 'networkError');
+          });
     },
   });
 

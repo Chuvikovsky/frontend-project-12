@@ -27,6 +27,7 @@ export default defineConfig([
   stylistic.configs.customize({
     semi: true,
     indent: 2,
+
   }),
   {
     plugins: {
@@ -42,6 +43,8 @@ export default defineConfig([
       'max-statements': 'off',
       'no-negated-condition': 'off',
       'id-length': 'off',
+      '@stylistic/arrow-parens': ['error', 'always'],
+      '@stylistic/indent': ['error', 2, { MemberExpression: 1 }],
     },
   },
   {

@@ -7,8 +7,8 @@ import filter from '../utils/profany.js';
 
 const MessageForm = ({ inputRef }) => {
   const [text, setText] = useState('');
-  const channelId = useSelector(state => state.channels.currentChannelId);
-  const username = useSelector(state => state.auth.username);
+  const channelId = useSelector((state) => state.channels.currentChannelId);
+  const username = useSelector((state) => state.auth.username);
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const handleChange = (e) => {
@@ -34,7 +34,7 @@ const MessageForm = ({ inputRef }) => {
 
   return (
     <div className="mt-auto px-5 py-3">
-      <form className="py-1 border rounded-2" onSubmit={e => handleSubmit(e)}>
+      <form className="py-1 border rounded-2" onSubmit={(e) => handleSubmit(e)}>
         <div className="input-group has-validation">
           <input
             name="body"
@@ -42,7 +42,7 @@ const MessageForm = ({ inputRef }) => {
             placeholder={t('enterYourMessage')}
             className="border-0 p-0 ps-2 form-control outline-secondary"
             value={text}
-            onChange={e => handleChange(e)}
+            onChange={(e) => handleChange(e)}
             ref={inputRef}
           />
           <button

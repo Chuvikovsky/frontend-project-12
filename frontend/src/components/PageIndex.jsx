@@ -47,7 +47,7 @@ const PageIndex = () => {
         });
     };
     getData();
-  }, []);
+  }, [dispatch, t]);
 
   return (
     <>

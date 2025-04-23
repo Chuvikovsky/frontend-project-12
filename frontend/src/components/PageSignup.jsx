@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Form, Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
-import { signupRequest } from '../utils/requests';
 import { useDispatch } from 'react-redux';
+import { signupRequest } from '../utils/requests';
 import { logIn } from '../store/authSlice';
 import { setToken } from '../utils/localStorage';
 

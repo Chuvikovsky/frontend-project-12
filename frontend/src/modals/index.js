@@ -7,4 +7,4 @@ const modals = {
   renaming: AddChannel,
 };
 
-export default modalName => modals[modalName];
+export default (modalName) => modals[modalName];

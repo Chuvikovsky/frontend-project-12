@@ -1,7 +1,7 @@
 import { Modal, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { removeChannelRequest } from '../utils/requests.js';
 import { useDispatch } from 'react-redux';
+import { removeChannelRequest } from '../utils/requests.js';
 import { closeModal } from '../store/modalSlice.js';
 
 const RemoveChannel = ({ channel, notify }) => {

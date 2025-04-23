@@ -17,8 +17,7 @@ const init = async () => {
   });
 
   const rollbarConfig = {
-    accessToken:
-      '2f2704ebf6cb4eeeb7bbe8cbfbbf6b818c233c36657f734c6306f55c4cc4b315ca87f65cf3d53dff7ce07d9f4b61974c',
+    accessToken: import.meta.env.VITE_ROOLBAR_KEY ?? '',
     environment: 'testenv',
   };
 

@@ -15,7 +15,7 @@ const Channels = ({ channels, inputRef }) => {
     toast[type](t(text), { toastId: 'channel', containerId: 'channel' });
   };
   const currentChannelId = useSelector(
-    state => state.channels.currentChannelId,
+    (state) => state.channels.currentChannelId,
   );
   const handleChangeChannel = (channel) => {
     dispatch(changeChannel(channel.id));
@@ -25,8 +25,8 @@ const Channels = ({ channels, inputRef }) => {
   //   setModalInfo({ type: null, item: null });
   // };
 
-  const renderModal = () => {
-    const { type, channel } = useSelector(state => state.modal);
+  const RenderModal = () => {
+    const { type, channel } = useSelector((state) => state.modal);
     if (type === null) {
       return null;
     }
@@ -39,7 +39,7 @@ const Channels = ({ channels, inputRef }) => {
     return `w-100 rounded-0 text-start btn${selectedChannel}`;
   };
 
-  const showNonRemovableChannel = ch => (
+  const showNonRemovableChannel = (ch) => (
     <button
       type="button"
       className={channelClass(ch.id)}
@@ -51,7 +51,7 @@ const Channels = ({ channels, inputRef }) => {
     </button>
   );
 
-  const showRemovableChannel = ch => (
+  const showRemovableChannel = (ch) => (
     <Dropdown as={ButtonGroup} className="w-100">
       <button
         type="button"
@@ -100,10 +100,10 @@ const Channels = ({ channels, inputRef }) => {
         >
           +
         </button>
-        {renderModal()}
+        {RenderModal()}
       </div>
       <ul className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
-        {channels.map(ch => (
+        {channels.map((ch) => (
           <li key={ch.id} className="nav-item w-100">
             {ch.removable
               ? showRemovableChannel(ch)
