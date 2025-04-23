@@ -1,36 +1,37 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { ButtonGroup, Dropdown } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
-import getModal from './modals/index';
+import getModal from '../modals/index';
 import { changeChannel } from '../store/channelsSlice';
+import { setModalType } from '../store/modalSlice';
 
 const Channels = ({ channels, inputRef }) => {
-  const [modalInfo, setModalInfo] = useState({ type: null, item: null });
+  // const [modalInfo, setModalInfo] = useState({ type: null, item: null });
   const dispatch = useDispatch();
   const { t } = useTranslation();
   const notify = (type, text) => {
     toast[type](t(text), { toastId: 'channel', containerId: 'channel' });
   };
   const currentChannelId = useSelector(
-    (state) => state.channels.currentChannelId,
+    state => state.channels.currentChannelId,
   );
   const handleChangeChannel = (channel) => {
     dispatch(changeChannel(channel.id));
   };
 
-  const onHide = () => {
-    setModalInfo({ type: null, item: null });
-  };
+  // const onHide = () => {
+  //   setModalInfo({ type: null, item: null });
+  // };
 
   const renderModal = () => {
-    const { type, item } = modalInfo;
+    const { type, channel } = useSelector(state => state.modal);
     if (type === null) {
       return null;
     }
     const Modal = getModal(type);
-    return <Modal channel={item} onHide={onHide} notify={notify} />;
+    return <Modal channel={channel} notify={notify} />;
   };
 
   const channelClass = (id) => {
@@ -38,18 +39,19 @@ const Channels = ({ channels, inputRef }) => {
     return `w-100 rounded-0 text-start btn${selectedChannel}`;
   };
 
-  const showNonRemovableChannel = (ch) => (
+  const showNonRemovableChannel = ch => (
     <button
       type="button"
       className={channelClass(ch.id)}
       onClick={() => handleChangeChannel(ch)}
     >
       #
+      {' '}
       {ch.name}
     </button>
   );
 
-  const showRemovableChannel = (ch) => (
+  const showRemovableChannel = ch => (
     <Dropdown as={ButtonGroup} className="w-100">
       <button
         type="button"
@@ -57,6 +59,7 @@ const Channels = ({ channels, inputRef }) => {
         onClick={() => handleChangeChannel(ch)}
       >
         #
+        {' '}
         {ch.name}
       </button>
       <Dropdown.Toggle
@@ -69,12 +72,12 @@ const Channels = ({ channels, inputRef }) => {
       </Dropdown.Toggle>
       <Dropdown.Menu>
         <Dropdown.Item
-          onClick={() => setModalInfo({ type: 'removing', item: ch })}
+          onClick={() => dispatch(setModalType({ type: 'removing', channel: ch }))}
         >
           {t('remove')}
         </Dropdown.Item>
         <Dropdown.Item
-          onClick={() => setModalInfo({ type: 'renaming', item: ch })}
+          onClick={() => dispatch(setModalType({ type: 'renaming', channel: ch }))}
         >
           {t('rename')}
         </Dropdown.Item>
@@ -93,14 +96,14 @@ const Channels = ({ channels, inputRef }) => {
         <button
           type="button"
           className="p-0 text-primary btn btn-group-vertical"
-          onClick={() => setModalInfo({ type: 'adding', item: null })}
+          onClick={() => dispatch(setModalType({ type: 'adding', item: null }))}
         >
           +
         </button>
         {renderModal()}
       </div>
       <ul className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
-        {channels.map((ch) => (
+        {channels.map(ch => (
           <li key={ch.id} className="nav-item w-100">
             {ch.removable
               ? showRemovableChannel(ch)

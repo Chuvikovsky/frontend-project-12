@@ -1,4 +1,4 @@
-import React, { StrictMode } from 'react';
+import { StrictMode } from 'react';
 import i18next from 'i18next';
 import { I18nextProvider, initReactI18next } from 'react-i18next';
 import { Provider } from 'react-redux';
@@ -6,6 +6,7 @@ import { Provider as RollbarProvider, ErrorBoundary } from '@rollbar/react';
 import App from './components/App';
 import resources from './locales/index.js';
 import store from './store/index.js';
+import Sockets from './components/Sockets.js';
 
 const init = async () => {
   const i18n = i18next.createInstance();
@@ -27,7 +28,9 @@ const init = async () => {
         <ErrorBoundary>
           <Provider store={store}>
             <I18nextProvider i18n={i18n}>
-              <App />
+              <Sockets>
+                <App />
+              </Sockets>
             </I18nextProvider>
           </Provider>
         </ErrorBoundary>

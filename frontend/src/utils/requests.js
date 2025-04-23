@@ -1,16 +1,16 @@
 import axios from 'axios';
-import routes from './routes.js';
+import { apiRoutes as routes } from './routes.js';
 import getAuthHeader from './authHeader.js';
 
-const logInRequest = (values) => axios.post(routes.loginPath(), values);
+const logInRequest = values => axios.post(routes.loginPath(), values);
 
-const signupRequest = (values) => axios.post(routes.signupPath(), values);
+const signupRequest = values => axios.post(routes.signupPath(), values);
 
 const getChannels = () => axios.get(routes.channelsPath(), { headers: getAuthHeader() });
 
 const getMessages = () => axios.get(routes.messagesPath(), { headers: getAuthHeader() });
 
-const sendMessageRequest = (message) => axios.post(routes.messagesPath(), message, {
+const sendMessageRequest = message => axios.post(routes.messagesPath(), message, {
   headers: getAuthHeader(),
 });
 
@@ -21,7 +21,7 @@ const addChannelRequest = (channelname) => {
   });
 };
 
-const removeChannelRequest = (channelId) => axios.delete(`${routes.channelsPath()}/${channelId}`, {
+const removeChannelRequest = channelId => axios.delete(`${routes.channelsPath()}/${channelId}`, {
   headers: getAuthHeader(),
 });
 

@@ -1,6 +1,8 @@
+import { getToken } from './localStorage';
+
 const getAuthHeader = () => {
-  const token = JSON.parse(localStorage.getItem('token'));
-  return token && token.token ? { Authorization: `Bearer ${token.token}` } : null;
+  const token = getToken();
+  return token && token.token ? { Authorization: `Bearer ${token.token}` } : {};
 };
 
 export default getAuthHeader;

@@ -22,7 +22,7 @@ const channelsSlice = createSlice({
 });
 
 const channelSelectors = channelsAdapter.getSelectors(
-  (state) => state.channels,
+  state => state.channels,
 );
 
 export const {

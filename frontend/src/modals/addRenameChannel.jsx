@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import { Modal, Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
@@ -7,22 +7,23 @@ import { useTranslation } from 'react-i18next';
 import {
   addChannelRequest,
   renameChannelRequest,
-} from '../../utils/requests.js';
+} from '../utils/requests.js';
 import {
   addChannel,
   changeChannel,
   channelSelectors,
-} from '../../store/channelsSlice';
-import filter from '../../utils/profany.js';
+} from '../store/channelsSlice.js';
+import { closeModal } from '../store/modalSlice.js';
+import filter from '../utils/profany.js';
 
-const AddChannel = ({ channel = null, onHide, notify }) => {
+const AddChannel = ({ channel = null, notify }) => {
   const isAddModal = channel === null;
   const inputRef = useRef(null);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
   const allChannelNames = useSelector(channelSelectors.selectAll).map(
-    (ch) => ch.name,
+    ch => ch.name,
   );
 
   const formik = useFormik({
@@ -40,39 +41,33 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
     validateOnChange: false,
     onSubmit: (values) => {
       const filteredName = filter(values.channelname);
-      // if (filteredName !== values.channelname) {
-      //   formik.setErrors({ channelname: t("forbiddenWord") });
-      //   formik.setValues({ channelname: filteredName });
-      //   formik.setSubmitting(false);
-      //   return;
-      // }
       return isAddModal
-        ? addChannelRequest(filteredName) // promise
-          .then((response) => {
-            dispatch(addChannel(response.data));
-            return response;
-          })
-          .then((response) => {
-            dispatch(changeChannel(response.data.id));
-            onHide();
-            notify('success', 'channelCreated');
-          })
-          .catch(() => {
-            formik.setSubmitting(false);
-            notify('error', 'networkError');
-          })
+        ? addChannelRequest(filteredName)
+            .then((response) => {
+              dispatch(addChannel(response.data));
+              return response;
+            })
+            .then((response) => {
+              dispatch(changeChannel(response.data.id));
+              dispatch(closeModal());
+              notify('success', 'channelCreated');
+            })
+            .catch(() => {
+              formik.setSubmitting(false);
+              notify('error', 'networkError');
+            })
         : renameChannelRequest({
-          channelId: channel.id,
-          channelname: filteredName,
-        }) // promise
-          .then(() => {
-            onHide();
-            notify('success', 'channelRenamed');
+            channelId: channel.id,
+            channelname: filteredName,
           })
-          .catch(() => {
-            formik.setSubmitting(false);
-            notify('error', 'networkError');
-          });
+            .then(() => {
+              dispatch(closeModal());
+              notify('success', 'channelRenamed');
+            })
+            .catch(() => {
+              formik.setSubmitting(false);
+              notify('error', 'networkError');
+            });
     },
   });
 
@@ -83,7 +78,7 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
 
   return (
     <Modal show>
-      <Modal.Header closeButton onHide={onHide}>
+      <Modal.Header closeButton>
         <Modal.Title>
           {isAddModal ? t('addChannel') : t('renameChannel')}
         </Modal.Title>
@@ -110,7 +105,7 @@ const AddChannel = ({ channel = null, onHide, notify }) => {
               <Button
                 className="me-2 mt-2"
                 variant="secondary"
-                onClick={onHide}
+                onClick={() => dispatch(closeModal())}
               >
                 {t('cancel')}
               </Button>

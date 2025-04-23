@@ -1,14 +1,16 @@
-import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-import { removeChannelRequest } from '../../utils/requests.js';
+import { removeChannelRequest } from '../utils/requests.js';
+import { useDispatch } from 'react-redux';
+import { closeModal } from '../store/modalSlice.js';
 
-const RemoveChannel = ({ channel, onHide, notify }) => {
+const RemoveChannel = ({ channel, notify }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
   const handleRemove = () => {
-    removeChannelRequest(channel.id) // promise
+    removeChannelRequest(channel.id)
       .then(() => {
-        onHide();
+        dispatch(closeModal());
         notify('success', 'channelRemoved');
       })
       .catch(() => {
@@ -18,17 +20,19 @@ const RemoveChannel = ({ channel, onHide, notify }) => {
 
   return (
     <Modal show>
-      <Modal.Header closeButton onHide={onHide}>
+      <Modal.Header closeButton onHide={() => dispatch(closeModal())}>
         <Modal.Title>
           {t('removeChannel')}
+          {' '}
           #
+          {' '}
           {channel.name}
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>{t('areYouSureQuestion')}</Modal.Body>
       <Modal.Footer>
         <div className="d-flex justify-content-end">
-          <Button className="me-2 mt-2" variant="secondary" onClick={onHide}>
+          <Button className="me-2 mt-2" variant="secondary" onClick={() => dispatch(closeModal())}>
             {t('cancel')}
           </Button>
           <Button

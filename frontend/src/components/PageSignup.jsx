@@ -1,4 +1,3 @@
-import React from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
@@ -6,12 +5,15 @@ import { Button, Form, Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
 import { signupRequest } from '../utils/requests';
-import useAuth from '../utils/useAuth';
+import { useDispatch } from 'react-redux';
+import { logIn } from '../store/authSlice';
+import { setToken } from '../utils/localStorage';
 
 const PageSignup = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const auth = useAuth();
+  const dispatch = useDispatch();
+
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -37,8 +39,8 @@ const PageSignup = () => {
       const { username, password } = values;
       return signupRequest({ username, password }) // promise
         .then((response) => {
-          localStorage.setItem('token', JSON.stringify(response.data));
-          auth.logIn(response.data.username);
+          setToken(JSON.stringify(response.data));
+          dispatch(logIn(response.data.username));
           navigate('/');
         })
         .catch((err) => {

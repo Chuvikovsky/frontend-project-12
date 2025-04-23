@@ -1,4 +1,3 @@
-import React, { useState, useMemo } from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -11,68 +10,39 @@ import PageLogin from './PagesLogin.jsx';
 import PageIndex from './PageIndex.jsx';
 import PageNotFound from './PageNotFound.jsx';
 import PageSignup from './PageSignup.jsx';
-import AuthContext from '../store/authContext.js';
-import useAuth from '../utils/useAuth.jsx';
-
-const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState({
-    username: null,
-    isLoggedIn: false,
-  });
-
-  const logIn = (username) => setUser({ isLoggedIn: true, username });
-  const logOut = () => {
-    localStorage.removeItem('token');
-    setUser({
-      username: null,
-      isLoggedIn: false,
-    });
-  };
-
-  const authHandler = useMemo(
-    () => ({
-      user,
-      logIn,
-      logOut,
-    }),
-    [user],
-  );
-
-  return (
-    <AuthContext.Provider value={authHandler}>{children}</AuthContext.Provider>
-  );
-};
+import { useSelector } from 'react-redux';
+import { localRoutes } from '../utils/routes.js';
 
 const PrivateRouter = ({ children }) => {
+  const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
   const location = useLocation();
-  const { user } = useAuth();
 
-  return user.isLoggedIn ? (
-    children
-  ) : (
-    <Navigate to="/login" state={{ from: location }} />
-  );
+  return isLoggedIn
+    ? (
+        children
+      )
+    : (
+        <Navigate to={localRoutes.login} state={{ from: location }} />
+      );
 };
 
 const App = () => (
-  <AuthProvider>
-    <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="login" element={<PageLogin />} />
-        <Route path="signup" element={<PageSignup />} />
-        <Route path="*" element={<PageNotFound />} />
-        <Route
-          path="/"
-          element={(
-            <PrivateRouter>
-              <PageIndex />
-            </PrivateRouter>
-          )}
-        />
-      </Routes>
-    </BrowserRouter>
-  </AuthProvider>
+  <BrowserRouter>
+    <Header />
+    <Routes>
+      <Route path={localRoutes.login} element={<PageLogin />} />
+      <Route path={localRoutes.signup} element={<PageSignup />} />
+      <Route path={localRoutes.notFound} element={<PageNotFound />} />
+      <Route
+        path={localRoutes.root}
+        element={(
+          <PrivateRouter>
+            <PageIndex />
+          </PrivateRouter>
+        )}
+      />
+    </Routes>
+  </BrowserRouter>
 );
 
 export default App;

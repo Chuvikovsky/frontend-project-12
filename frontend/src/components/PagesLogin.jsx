@@ -1,17 +1,19 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useFormik } from 'formik';
 import { useNavigate, Link } from 'react-router-dom';
 import { Button, Form, Card } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { ToastContainer, toast } from 'react-toastify';
 import { logInRequest } from '../utils/requests';
-import useAuth from '../utils/useAuth';
+import { logIn } from '../store/authSlice';
+import { useDispatch } from 'react-redux';
+import { setToken } from '../utils/localStorage';
 
 const PageLogin = () => {
   const [isAuthFailed, setAuthFailed] = useState(false);
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const auth = useAuth();
+  const dispatch = useDispatch();
   const formik = useFormik({
     initialValues: {
       username: '',
@@ -21,8 +23,8 @@ const PageLogin = () => {
       setAuthFailed(false);
       return logInRequest(values) // promise
         .then((response) => {
-          localStorage.setItem('token', JSON.stringify(response.data));
-          auth.logIn(response.data.username);
+          setToken(JSON.stringify(response.data));
+          dispatch(logIn(response.data.username));
           navigate('/');
         })
         .catch((err) => {
@@ -78,7 +80,10 @@ const PageLogin = () => {
         </Form>
         <div style={{ textAlign: 'center' }}>
           {t('noAccountQuestion')}
-          <Link to="/signup">{t('registration')}</Link>
+          <Link to="/signup">
+            {' '}
+            {t('registration')}
+          </Link>
         </div>
       </Card>
       <ToastContainer />

@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { channelSelectors } from '../store/channelsSlice';
@@ -10,6 +9,7 @@ const showCurrentChannel = (channel) => {
   return (
     <b>
       #
+      {' '}
       {channel.name}
     </b>
   );
@@ -19,7 +19,7 @@ const showMessages = (messages) => {
   if (messages.length) {
     return (
       <ul className="nav">
-        {messages.map((m) => (
+        {messages.map(m => (
           <li key={m.id} className="w-100">
             <span>
               {m.username}
@@ -35,10 +35,10 @@ const showMessages = (messages) => {
 };
 
 const Messages = ({ messages, children }) => {
-  const channelId = useSelector((state) => state.channels.currentChannelId);
+  const channelId = useSelector(state => state.channels.currentChannelId);
 
-  const currentChannel = useSelector((state) => channelSelectors.selectById(state, channelId));
-  const filteredMessages = messages.filter((m) => m.channelId === channelId);
+  const currentChannel = useSelector(state => channelSelectors.selectById(state, channelId));
+  const filteredMessages = messages.filter(m => m.channelId === channelId);
   const { t } = useTranslation();
 
   return (
