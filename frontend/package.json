@@ -11,12 +11,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@eslint/js": "^9.25.1",
     "@reduxjs/toolkit": "^2.6.1",
     "@rollbar/react": "^0.12.1",
+    "@stylistic/eslint-plugin": "^4.2.0",
     "@vitejs/plugin-react": "^4.3.4",
     "axios": "^1.8.4",
     "bootstrap": "^5.3.5",
+    "eslint-plugin-functional": "^9.0.1",
+    "eslint-plugin-react": "^7.37.5",
     "formik": "^2.4.6",
+    "globals": "^16.0.0",
     "i18next": "^24.2.3",
     "leo-profanity": "^1.7.0",
     "react": "^19.0.0",
@@ -32,13 +37,8 @@
     "yup": "^1.6.1"
   },
   "devDependencies": {
-    "@eslint/js": "^9.25.1",
-    "@stylistic/eslint-plugin": "^4.2.0",
     "@types/react": "^19.0.10",
     "@types/react-dom": "^19.0.4",
-    "eslint": "^9.25.1",
-    "eslint-plugin-functional": "^9.0.1",
-    "eslint-plugin-react": "^7.37.5",
-    "globals": "^15.15.0"
+    "eslint": "^9.25.1"
   }
 }

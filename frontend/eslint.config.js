@@ -45,6 +45,7 @@ export default defineConfig([
       'id-length': 'off',
       '@stylistic/arrow-parens': ['error', 'always'],
       '@stylistic/indent': ['error', 2, { MemberExpression: 1 }],
+      '@stylistic/brace-style': ['error', '1tbs'],
     },
   },
   {

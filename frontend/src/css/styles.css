@@ -8,3 +8,23 @@
   clip: rect(0, 0, 0, 0);
   border: 0;
 }
+
+.card {
+  width: 18rem;
+  padding: 5px;
+  margin-top: 10px;
+}
+
+.card h3 {
+  text-align: center;
+}
+
+.row {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+.container {
+  padding-left: 0px;
+  padding-right: 0px;
+}

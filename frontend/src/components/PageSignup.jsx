@@ -58,9 +58,9 @@ const PageSignup = () => {
   });
 
   return (
-    <>
-      <Card style={{ width: '18rem' }}>
-        <h3 style={{ textAlign: 'center' }}>{t('registration')}</h3>
+    <div className="row justify-content-center">
+      <Card>
+        <h3>{t('registration')}</h3>
         <Form onSubmit={formik.handleSubmit} className="p-3">
           <Form.Group controlId="username" className="mb-3">
             <Form.Label className="sr-only">{t('userName')}</Form.Label>
@@ -119,7 +119,7 @@ const PageSignup = () => {
         </Form>
       </Card>
       <ToastContainer />
-    </>
+    </div>
   );
 };
 

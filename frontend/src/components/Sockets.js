@@ -29,8 +29,7 @@ const Sockets = ({ children }) => {
     socket.on('renameChannel', (payload) => {
       dispatch(renameChannel({ id: payload.id, changes: payload }));
     });
-  }
-  catch {
+  } catch {
     toast.error(t('newChannelError'), { toastId: 'socket', containerId: 'networkError' });
   }
 

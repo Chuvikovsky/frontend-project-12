@@ -12,17 +12,11 @@ const modalSlice = createSlice({
     setModalType: (state, action) => {
       const { type, channel } = action.payload;
       if (!channel) {
-        state.type = type;
-        state.channel = null;
-        return;
+        return { type, channel: null };
       }
-      state.type = type;
-      state.channel = channel;
+      return { type, channel };
     },
-    closeModal: (state) => {
-      state.type = null;
-      state.channel = null;
-    },
+    closeModal: () => ({ type: null, channel: null }),
   },
 });
 

@@ -25,7 +25,7 @@ const Channels = ({ channels, inputRef }) => {
   //   setModalInfo({ type: null, item: null });
   // };
 
-  const RenderModal = () => {
+  const renderModal = () => {
     const { type, channel } = useSelector((state) => state.modal);
     if (type === null) {
       return null;
@@ -100,7 +100,7 @@ const Channels = ({ channels, inputRef }) => {
         >
           +
         </button>
-        {RenderModal()}
+        {renderModal()}
       </div>
       <ul className="nav flex-column nav-pills nav-fill px-2 mb-3 overflow-auto h-100 d-block">
         {channels.map((ch) => (

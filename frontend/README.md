@@ -1,12 +1,34 @@
-# React + Vite
+### Проект "Hexlet Chat"
+Упрощенный онлайн чат с бекенд сервером, фронтенд которого построен на технологии React.
+Особенности: авторизация, регистрация новых пользователей, переключение по каналам, управление каналами (добавление, переименование, удаление), интернационализация, всплывающие уведомления ( react-toastify), фильтрация нецензурных слов (leo-profanity).
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Сообщения отправляются на сервер через POST запрос, получение данных от сервера через websockets.
 
-Currently, two official plugins are available:
+React приложение постоено с помощью Vite.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+#### Ссылка на проект
+https://frontend-project-12-yvu1.onrender.com/
 
-## Expanding the ESLint configuration
+#### Используемые технологии
+- React, React Router, Redux Toolkit, React Bootstrap
+- Formik, Yup, i18next
+- Socket.io client
+- Bootstrap
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Системные требования
+ - Node.js & npm
+
+### Установка и запуск
+Установка зависимостей
+```bash
+make install
+```
+
+Запуск сервера
+```bash
+make start
+```
+Сборка приложения
+```bash
+make build
+```

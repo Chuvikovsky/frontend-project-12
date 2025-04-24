@@ -20,7 +20,7 @@ const Header = () => {
   return (
     <nav className="shadow-sm navbar navbar-expand-lg navbar-light bg-white">
       <div className="container">
-        <Link to="/">{t('logoHexChat')}</Link>
+        <Link to="/" className="navbar-brand">{t('logoHexChat')}</Link>
         {isLoggedIn ? logInBtn : null}
       </div>
     </nav>

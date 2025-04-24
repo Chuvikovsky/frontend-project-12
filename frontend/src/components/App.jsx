@@ -27,22 +27,24 @@ const PrivateRouter = ({ children }) => {
 };
 
 const App = () => (
-  <BrowserRouter>
-    <Header />
-    <Routes>
-      <Route path={localRoutes.login} element={<PageLogin />} />
-      <Route path={localRoutes.signup} element={<PageSignup />} />
-      <Route path={localRoutes.notFound} element={<PageNotFound />} />
-      <Route
-        path={localRoutes.root}
-        element={(
-          <PrivateRouter>
-            <PageIndex />
-          </PrivateRouter>
-        )}
-      />
-    </Routes>
-  </BrowserRouter>
+  <div className="d-flex flex-column h-100">
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path={localRoutes.login} element={<PageLogin />} />
+        <Route path={localRoutes.signup} element={<PageSignup />} />
+        <Route path={localRoutes.notFound} element={<PageNotFound />} />
+        <Route
+          path={localRoutes.root}
+          element={(
+            <PrivateRouter>
+              <PageIndex />
+            </PrivateRouter>
+          )}
+        />
+      </Routes>
+    </BrowserRouter>
+  </div>
 );
 
 export default App;

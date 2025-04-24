@@ -21,7 +21,7 @@ const PageLogin = () => {
     },
     onSubmit: (values) => {
       setAuthFailed(false);
-      return logInRequest(values) // promise
+      return logInRequest(values)
         .then((response) => {
           setToken(JSON.stringify(response.data));
           dispatch(logIn(response.data.username));
@@ -39,9 +39,9 @@ const PageLogin = () => {
   });
 
   return (
-    <>
-      <Card style={{ width: '18rem' }}>
-        <h3 style={{ textAlign: 'center' }}>{t('login')}</h3>
+    <div className="row justify-content-center">
+      <Card>
+        <h3>{t('login')}</h3>
         <Form onSubmit={formik.handleSubmit} className="p-3">
           <Form.Group controlId="username" className="mb-3">
             <Form.Label className="sr-only">{t('userNick')}</Form.Label>
@@ -80,14 +80,14 @@ const PageLogin = () => {
         </Form>
         <div style={{ textAlign: 'center' }}>
           {t('noAccountQuestion')}
+          {' '}
           <Link to="/signup">
-            {' '}
             {t('registration')}
           </Link>
         </div>
       </Card>
       <ToastContainer />
-    </>
+    </div>
   );
 };
 
