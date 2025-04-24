@@ -1,3 +1,4 @@
+import React from 'react';
 import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useNavigate } from 'react-router-dom';
@@ -37,7 +38,7 @@ const PageSignup = () => {
     }),
     onSubmit: (values) => {
       const { username, password } = values;
-      return signupRequest({ username, password }) // promise
+      return signupRequest({ username, password })
         .then((response) => {
           setToken(JSON.stringify(response.data));
           dispatch(logIn(response.data.username));

@@ -46,6 +46,8 @@ export default defineConfig([
       '@stylistic/arrow-parens': ['error', 'always'],
       '@stylistic/indent': ['error', 2, { MemberExpression: 1 }],
       '@stylistic/brace-style': ['error', '1tbs'],
+      'react/react-in-jsx-scope': 'error',
+      'react/jsx-uses-react': 'error',
     },
   },
   {
