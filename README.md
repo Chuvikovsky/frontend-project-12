@@ -1,12 +1,17 @@
-[![Actions Status](https://github.com/Chuvikovsky/frontend-project-12/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/Chuvikovsky/frontend-project-12/actions)
-
 ### Проект "Hexlet Chat"
 Упрощенный онлайн чат с бекенд сервером, фронтенд которого построен на технологии React.
-Особенности: авторизация, регистрация новых пользователей, переключение по каналам, управление каналами (добавление, переименование, удаление), интернационализация, всплывающие уведомления ( react-toastify), фильтрация нецензурных слов (leo-profanity).
+Особенности: 
+- авторизация
+- регистрация новых пользователей
+- переключение по каналам
+- управление каналами (добавление, переименование, удаление)
+- интернационализация
+- всплывающие уведомления (react-toastify)
+- фильтрация запрещенных слов (leo-profanity).
 
-Сообщения отправляются на сервер через POST запрос, получение данных от сервера через websockets.
+Сообщения отправляются на сервер через POST запрос, получение данных от сервера происходит через websockets.
 
-React приложение постоено с помощью Vite.
+React приложение построено с помощью Vite.
 
 #### Ссылка на проект
 https://frontend-project-12-yvu1.onrender.com/
@@ -21,16 +26,28 @@ https://frontend-project-12-yvu1.onrender.com/
  - Node.js & npm
 
 ### Установка и запуск
-Установка зависимостей
+
+Скопируйте репозиторий:
+```bash
+git clone https://github.com/Chuvikovsky/frontend-project-12.git
+```
+
+Перейдите в папку frontend-project-12
+```bash
+cd frontend-project-12
+```
+
+Установите зависимости
 ```bash
 make install
 ```
 
-Запуск сервера
-```bash
-make start
-```
-Сборка приложения
+Собирите приложение
 ```bash
 make build
+```
+
+Запустите сервер
+```bash
+make start
 ```
