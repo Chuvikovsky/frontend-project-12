@@ -22,10 +22,11 @@ const showMessages = (messages) => {
       <ul className="nav">
         {messages.map((m) => (
           <li key={m.id} className="w-100">
-            <span>
+            <strong>
               {m.username}
               :
-            </span>
+            </strong>
+            {' '}
             {m.body}
           </li>
         ))}
