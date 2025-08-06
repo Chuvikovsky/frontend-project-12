@@ -78,7 +78,7 @@ const AddChannel = ({ channel = null, notify }) => {
 
   return (
     <Modal show>
-      <Modal.Header closeButton>
+      <Modal.Header closeButton onHide={() => dispatch(closeModal())}>
         <Modal.Title>
           {isAddModal ? t('addChannel') : t('renameChannel')}
         </Modal.Title>
