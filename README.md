@@ -51,6 +51,8 @@ make build
 make start
 ```
 
+
 ![Hexlet Chat](public/chat-1.png)
+
 
 ![Hexlet Chat modal window](public/chat-2.png)
